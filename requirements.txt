@@ -1,0 +1,8 @@
+# Testing & Code Quality (Sprint 1)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+flake8>=6.1.0
+black>=23.9.0
+
+# API & Data Handling (สำหรับ Sprint 2 และ 3)
+requests>=2.31.0

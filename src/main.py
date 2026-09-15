@@ -1,7 +1,7 @@
 """Sprint 1 entry point verifying engine logic without GUI/CLI dependency."""
 
-from src.utils import clean_ingredient_input, InvalidIngredientError
-from src.recipe_engine import filter_recipes_by_ingredients, pick_random_recipe
+from utils import clean_ingredient_input, InvalidIngredientError
+from recipe_engine import filter_recipes_by_ingredients, pick_random_recipe
 
 
 def run_roulette_simulation(raw_input: str) -> dict:
@@ -23,6 +23,6 @@ def run_roulette_simulation(raw_input: str) -> dict:
 
 if __name__ == "__main__":
     # Test sample run
-    sample_query = " Pork, Garlic "
+    sample_query = input("Enter the ingredients (example: 'Pork, Garlic'):")
     result = run_roulette_simulation(sample_query)
     print("Execution Result:", result)

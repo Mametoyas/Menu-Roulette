@@ -7,10 +7,11 @@
 
 | Test Case | Input | Expected Output | Actual Output | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| Empty Input | `"   "` | Throw `InvalidIngredientError` | Exception caught gracefully | PASSED |
-| Numeric Input | `"pork123, egg"` | Reject input with warning | `InvalidIngredientError` raised | PASSED |
-| Special Chars | `"pork!!, egg?"` | Strip symbols to `['pork', 'egg']` | `['pork', 'egg']` returned | PASSED |
-| No Match | `"chocolate"` | Return match count `0` and `None` | `match_count: 0, selected_recipe: None` | PASSED |
+| Valid Input | `" Pork , Egg! , garlic "` | `['pork', 'egg', 'garlic']` | `['pork', 'egg', 'garlic']` returned | PASSED |
+| Numeric Input | `"pork, egg123"` | Raise `InvalidIngredientError` | `InvalidIngredientError` raised | PASSED |
+| Empty Input | `"   ,  "` | Raise `InvalidIngredientError` | `InvalidIngredientError` raised | PASSED |
+| Filter Match | `["pork"]` | 2 recipes containing `pork` | 2 matches returned | PASSED |
+| No Match | `["avocado"]` | 0 matches, `pick_random_recipe` returns `None` | `[]` and `None` returned | PASSED |
 
 ![Sprint 1 Report](img/Sprint1_report.png)
 

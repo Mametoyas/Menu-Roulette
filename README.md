@@ -20,7 +20,7 @@ The objectives of Recipe Roulette are:
 * Apply searching, filtering, sorting, and ranking algorithms to recipe data.
 * Validate user input and handle invalid input or API errors.
 * Demonstrate modular programming and layered software architecture.
-* Prepare the system for future data persistence and additional features.
+* Prepare the system for future additional features.
 
 ---
 
@@ -99,28 +99,20 @@ Recipe Roulette follows a layered architecture that separates the user interface
 ```text
 +-------------------------------------+
 |         Presentation Layer          |
-|                                     |
-|              CLI / UI               |
-|        Menu & User Interaction      |
+|              (CLI UI)               |
 +------------------+------------------+
                    |
                    v
 +-------------------------------------+
 |         Business Logic Layer        |
-|                                     |
-|  Input Validation                   |
-|  Recipe Search                      |
-|  Filtering                          |
-|  Recipe Scoring                     |
-|  Random Recommendation              |
+|      (Validation / Scoring /        |
+|       Filtering / Selection)        |
 +------------------+------------------+
                    |
                    v
 +-------------------------------------+
 |           Data Access Layer         |
-|                                     |
-|        TheMealDB API Client         |
-|        JSON Data Processing         |
+|         (TheMealDB API Client)      |
 +------------------+------------------+
                    |
                    v
@@ -270,7 +262,6 @@ END
 | Language | Python 3.11 |
 | API | TheMealDB API |
 | Data Format | JSON |
-| Persistence | SQLite (`sqlite3`) |
 | Architecture | Layered Architecture |
 | Interface | CLI / GUI (Tkinter) |
 | Version Control | Git / GitHub |
@@ -336,23 +327,20 @@ pytest
 
 ---
 
-## Sprint 2 — Back-End, API Integration & Data Persistence 🔄
+## Sprint 2 — Back-End & API Integration 🔄
 
-**Focus:** Transition from mock data to real-time TheMealDB API and implement local data persistence using SQLite.
+**Focus:** Transition from mock data to real-time TheMealDB API.
 
 **Architecture & Tech Stack:**
 - **HTTP Client**: `requests` package
-- **Persistence Layer**: SQLite (`recipes.db`) via `sqlite3`
 - **Testing**: `pytest` + `unittest.mock` / `requests-mock`
 
 ```text
 src/
 ├── api_client.py      # TheMealDB API requests & JSON parsing
-├── db_manager.py      # SQLite connection, schema creation, CRUD operations
-└── recipe_engine.py   # Business logic connecting API, Database, and Filtering
+└── recipe_engine.py   # Business logic connecting API and Filtering
 tests/
-├── test_api.py        # Mock unit tests for API calls and error handling
-└── test_db.py         # In-memory SQLite CRUD unit tests
+└── test_api.py        # Mock unit tests for API calls and error handling
 ```
 
 ---
@@ -392,6 +380,6 @@ tests/
 1. GUI launches without errors via `python src/main.py`.
 2. Ingredient search triggers real API call and displays results as recipe cards.
 3. Clicking a recipe card opens a detail modal with full information.
-4. Favorites can be saved, viewed, and removed persistently via SQLite.
+4. Favorites can be saved, viewed, and removed.
 5. All API calls run on background threads — UI remains responsive at all times.
 6. PEP 8 compliant code passing all `pytest` test cases.

@@ -20,24 +20,57 @@
 
 ## Sprint 2: Back-End, API Integration & Data Persistence
 
-### Focus & Objectives
-Transition from Mock Data to real-time **TheMealDB API** integration and implement local **Data Persistence** using SQLite. Establish a robust Data Access Layer (DAL) and Business Logic Layer (BLL).
+## Project Overview
+- **Topic**: Recipe Roulette (Random recipe search by ingredients)
+- **Sprint Focus**: API Integration (TheMealDB), In-Memory Processing, CI/CD Pipeline, and Kanban Execution
 
-### Architecture & Tech Stack
-- **HTTP Client**: `requests` package (Handling GET queries, parameters, JSON parsing, and HTTP status codes)
-- **Persistence Layer**: SQLite (`recipes.db`) via standard library `sqlite3`
-- **Testing**: `pytest` + `unittest.mock` / `requests-mock` for API testing without live network calls
+### การแบ่งบทบาทหน้าที่ประจำ Sprint 2 (Rotation Roles)
+- **เต้ย (Planner)**: รับผิดชอบการบริหารจัดการ Kanban Board, วางแผนและจัดสรร Task Backlog, อัปเดตเอกสาร PLAN.md และ README.md, กำหนดมาตรฐาน Git Branching Strategy และ Code Review Checklist
+- **โขง (Coder)**: รับผิดชอบการพัฒนาโมดูล src/api_client.py เชื่อมต่อ TheMealDB API, ดึงข้อมูล JSON และจัดการ Error/HTTP Status Code ต่างๆ โดยใช้ .env ด้วยในการจัดการ environment variables
+- **เบ็นซ์ (Coder)**: รับผิดชอบการพัฒนาโมดูล src/recipe_engine.py สำหรับประมวลผลข้อมูลวัตถุดิบ คำนวณ Match Score, Filtering และสุ่มเลือกเมนูแนะนำ (Random Recommendation)
+- **เตอร์ (Debugger)**: รับผิดชอบการเขียน Unit Test แบบ Mocking API (tests/test_api.py, tests/test_engine.py), การตั้งค่า CI/CD Automation ผ่าน GitHub Actions (.github/workflows/test.yml) และจัดทำ QA Report
 
-### Key Modules & File Structure
+### โครงสร้างโค้ดใหม่สำหรับ Sprint 2 (Pure Code + API)
 ```text
-src/
-├── api_client.py      # TheMealDB API requests & JSON parsing
-├── db_manager.py      # SQLite connection, schema creation, CRUD operations
-└── recipe_engine.py   # Business logic connecting API, Database, and Filtering
-tests/
-├── test_api.py        # Mock unit tests for API calls and error handling
-└── test_db.py         # In-memory SQLite CRUD unit tests
+    Menu-Roulette/
+    ├── .github/
+    │   └── workflows/
+    │       └── test.yml          # CI/CD: Automated pytest workflow
+    ├── src/
+    │   ├── __init__.py
+    │   ├── utils.py               # Input cleaning & validation (จาก Sprint 1)
+    │   ├── api_client.py          # TheMealDB API requests & JSON extraction
+    │   ├── recipe_engine.py       # Scoring, filtering & random selection
+    │   └── main.py                # CLI Application entry point
+    ├── tests/
+    │   ├── test_utils.py          # Input validation tests
+    │   ├── test_api.py            # API client tests using unittest.mock
+    │   └── test_engine.py         # Business logic & recommendation engine tests
+    ├── PLAN.md                    # Sprint planning & backlog details
+    ├── README.md                  # Project overview & documentation
+    └── requirements.txt
 ```
+## Definition of Done (DoD)
+1. Live execution fetches matching recipes from TheMealDB API without a database layer.
+2. Custom exceptions handle API timeouts, bad responses, or empty search results gracefully.
+3. Automated CI/CD pipeline passes all `pytest` unit tests on Pull Requests to `main`/`develop`.
+4. Kanban board is completely updated with clear Pull Request references.
+5. All codebase complies with PEP 8 standards.
+
+---
+
+## Technical Stack & Workflow
+- **HTTP Client**: `requests`
+- **Testing & Mocking**: `pytest`, `unittest.mock`
+- **CI/CD**: GitHub Actions
+- **Project Management**: GitHub Projects (Kanban Board)
+
+## Key Deliverables & Branching Strategy
+- `feature/api-client`: Developed by Khong (`src/api_client.py`)
+- `feature/recipe-engine`: Developed by Benz (`src/recipe_engine.py`)
+- `feature/cicd-testing`: Developed by Ter (`.github/workflows/test.yml`, `tests/`)
+- `docs/sprint2-plan`: Managed by Toey (`PLAN.md`, `README.md`)
+
 
 ---
 
@@ -78,6 +111,6 @@ tests/
 1. GUI launches without errors via `python -m src.main`.
 2. Ingredient search triggers real API call and displays results as recipe cards.
 3. Clicking a recipe card opens a detail modal with full information.
-4. Favorites can be saved, viewed, and removed persistently via SQLite.
+4. Favorites can be saved, viewed, and removed.
 5. All API calls run on background threads — UI remains responsive at all times.
 6. PEP 8 compliant code passing all `pytest` test cases.

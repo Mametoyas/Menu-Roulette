@@ -50,6 +50,12 @@
     ├── README.md                  # Project overview & documentation
     └── requirements.txt
 ```
+## Scoring Algorithm
+
+Recipes retrieved from the API are ranked based on ingredient coverage using the following formula:
+
+$$\text{Score} = \frac{\text{Matched User Ingredients}}{\text{Total User Ingredients}}$$
+
 ## Definition of Done (DoD)
 1. Live execution fetches matching recipes from TheMealDB API without a database layer.
 2. Custom exceptions handle API timeouts, bad responses, or empty search results gracefully.

@@ -8,6 +8,7 @@ from src.api_client import APIError
 from src.recipe_engine import (
     filter_and_rank,
     filter_recipes_by_ingredients,
+    format_recipe,
     pick_random_recipe,
     score_recipe,
     search_recipes,
@@ -186,6 +187,52 @@ def test_pick_random_recipe_fallback_without_score():
     picked = pick_random_recipe([MOCK_MEAL_52772])
 
     assert picked["idMeal"] == "52772"
+
+
+# --- format_recipe ---
+
+
+def test_format_recipe_full():
+    """All TheMealDB display fields are mapped to friendly keys."""
+    meal = {
+        "idMeal": "52772",
+        "strMeal": "Teriyaki Chicken Casserole",
+        "strCategory": "Chicken",
+        "strArea": "Japanese",
+        "strMealThumb": "http://img/1.jpg",
+        "strInstructions": "Cook it.",
+        "strYoutube": "http://y.tube/abc",
+        "strIngredient1": "Soy Sauce",
+        "strIngredient2": "",
+    }
+
+    result = format_recipe(meal)
+
+    assert result["name"] == "Teriyaki Chicken Casserole"
+    assert result["category"] == "Chicken"
+    assert result["area"] == "Japanese"
+    assert result["image_url"] == "http://img/1.jpg"
+    assert result["instructions"] == "Cook it."
+    assert result["youtube_url"] == "http://y.tube/abc"
+    assert result["ingredients"] == ["soy sauce"]
+    assert result["score"] is None
+
+
+def test_format_recipe_keeps_score():
+    """Ranked meals carry their score through formatting."""
+    meal = {**MOCK_MEAL_52772, "score": 1.0}
+
+    assert format_recipe(meal)["score"] == 1.0
+
+
+def test_format_recipe_missing_fields():
+    """Missing optional fields default to empty strings."""
+    result = format_recipe({"idMeal": "1"})
+
+    assert result["instructions"] == ""
+    assert result["image_url"] == ""
+    assert result["youtube_url"] == ""
+    assert result["ingredients"] == []
 
 
 # --- filter_recipes_by_ingredients (API meal objects) ---

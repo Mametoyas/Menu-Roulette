@@ -302,10 +302,20 @@ python src/main.py
 
 ### Web App (Sprint 3)
 
+**Live deployment:** https://recipe-roulette-seven.vercel.app/
+
 ```bash
 python src/web_app.py
 # open http://127.0.0.1:5000 in your browser
 ```
+
+# Deploy (Vercel)
+
+Recipe Roulette runs on Vercel as a Python (Flask) application under a single
+Vercel Function.
+
+Live URL: https://recipe-roulette-seven.vercel.app/
+
 
 # Test
 
@@ -336,25 +346,38 @@ pytest
 
 ---
 
-## Sprint 2 — Back-End & API Integration 🔄
+## Sprint 2 — Back-End & API Integration ✅
 
-**Focus:** Transition from mock data to real-time TheMealDB API.
+**Focus:** Transition from mock data to real-time TheMealDB API, CI/CD Automation, and Kanban Execution.
 
 **Architecture & Tech Stack:**
 - **HTTP Client**: `requests` package
-- **Testing**: `pytest` + `unittest.mock` / `requests-mock`
+- **Testing**: `pytest` + `unittest.mock`
+- **CI/CD**: GitHub Actions (`.github/workflows/test.yml`)
+- **Project Management**: GitHub Projects (Kanban Board)
 
 ```text
 src/
-├── api_client.py      # TheMealDB API requests & JSON parsing
-└── recipe_engine.py   # Business logic connecting API and Filtering
+├── api_client.py      # TheMealDB API requests, JSON parsing & error handling
+├── recipe_engine.py   # Match scoring, filtering & random recommendation
+├── main.py            # CLI application entry point
+└── utils.py           # Input cleaning & validation (from Sprint 1)
 tests/
-└── test_api.py        # Mock unit tests for API calls and error handling
+├── test_utils.py      # Input validation tests
+├── test_api.py        # API client tests using unittest.mock
+└── test_engine.py     # Business logic & recommendation engine tests
 ```
+
+| Role | Member | Deliverable |
+| :--- | :--- | :--- |
+| Planner | Toey | Kanban Board management, Sprint plan, README/PLAN updates, Git branching strategy |
+| Coder | Khong | `src/api_client.py` — TheMealDB API client, `.env` config, and error handling |
+| Coder | Benz | `src/recipe_engine.py` — match score, filtering & random recommendation |
+| Debugger | Ter | Unit tests (`tests/`), CI/CD workflow, QA report |
 
 ---
 
-## Sprint 3 — Web Application Development & Full-Stack Integration
+## Sprint 3 — Web Application Development & Full-Stack Integration ✅
 
 **Focus:** Develop a Web Application (Flask) and integrate it with the back-end engine from Sprints 1 & 2. The UI follows the `DESIGN.md` design system.
 
@@ -365,7 +388,7 @@ tests/
 | Web Framework | `Flask` | HTTP server, routing, request handling |
 | Templating | Jinja2 (Flask) | Server-side HTML rendering |
 | Frontend | HTML5 + CSS (Tailwind CDN) + JS (`fetch`) | Responsive UI, detail modal, loading bar, roulette spin |
-| State | In-Memory (page-scoped) | Selected ingredients |
+| State | In-Memory module store | Selected ingredients & favorites persistence |
 | Testing | `pytest` + Flask test client | Route & full-flow tests |
 
 ```text

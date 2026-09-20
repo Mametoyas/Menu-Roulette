@@ -1,36 +1,34 @@
-"""Sprint 1 entry point verifying engine logic without GUI/CLI dependency."""
+"""Console entry point — Sprint 2 live TheMealDB API flow."""
 
 # Import supports both execution modes:
-#   python src/main.py      -> utils / recipe_engine (src/ on sys.path)
-#   pytest (pythonpath = .) -> src.utils / src.recipe_engine
+#   python src/main.py      -> utils / recipe_engine / api_client (src/ on sys.path)
+#   pytest (pythonpath = .) -> src.utils / src.recipe_engine / src.api_client
 try:  # pragma: no cover - exercised when running `python src/main.py`
     from utils import clean_ingredient_input, InvalidIngredientError
-    from recipe_engine import (
-        filter_recipes_by_ingredients,
-        pick_random_recipe,
-    )
+    from recipe_engine import filter_and_rank, pick_random_recipe
+    from api_client import APIError
 except ImportError:
     from src.utils import clean_ingredient_input, InvalidIngredientError
-    from src.recipe_engine import (
-        filter_recipes_by_ingredients,
-        pick_random_recipe,
-    )
+    from src.recipe_engine import filter_and_rank, pick_random_recipe
+    from src.api_client import APIError
 
 
 def run_roulette_simulation(raw_input: str) -> dict:
-    """Executes the pipeline: Clean -> Filter -> Random Pick."""
+    """Executes the pipeline: Clean -> Live API Search/Score/Rank -> Random Pick."""
     try:
         cleaned_ingredients = clean_ingredient_input(raw_input)
-        matches = filter_recipes_by_ingredients(cleaned_ingredients)
-        selected = pick_random_recipe(matches)
+        ranked = filter_and_rank(cleaned_ingredients)
+        selected = pick_random_recipe(ranked)
 
         return {
             "status": "success",
             "query": cleaned_ingredients,
-            "match_count": len(matches),
+            "match_count": len(ranked),
             "selected_recipe": selected,
         }
     except InvalidIngredientError as e:
+        return {"status": "error", "message": str(e)}
+    except APIError as e:
         return {"status": "error", "message": str(e)}
 
 

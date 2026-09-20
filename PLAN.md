@@ -97,27 +97,26 @@ Develop a **Web Application** using **Flask** and integrate it with the Back-End
 ### Web Endpoints (Route Map)
 | Method | Route | Purpose |
 | :--- | :--- | :--- |
-| GET | `/` | Home — ingredient input & search form |
-| GET | `/search` | `?ingredients=...` → back-end engine → results page |
-| GET | `/recipe/<meal_id>` | Full recipe detail (modal data) |
-| POST | `/favorites/<meal_id>` | Save a recipe to favorites |
-| DELETE | `/favorites/<meal_id>` | Remove a recipe from favorites |
-| GET | `/favorites` | View saved recipes |
+| GET | `/` | Explore — hero, ingredient input, quick chips |
+| POST | `/api/search` | JSON `{ingredients}` → back-end engine → JSON result (async `fetch`) |
+| GET | `/recipe/<meal_id>` | Full recipe detail JSON (modal data) |
 
 
 ### Key Modules & File Structure
 ```text
 src/
-├── web_app.py          # Flask app factory, routes & app entry point
-...
+├── web_app.py          # Flask app, routes & app entry point
+├── api_client.py       # TheMealDB API client (Sprint 2)
+├── recipe_engine.py    # Scoring, filtering & random selection (Sprint 2)
+├── main.py             # CLI entry point (Sprint 2)
+└── utils.py            # Input cleaning & validation (Sprint 1)
 templates/
 ├── base.html           # Shared layout: header nav, footer, modal container
-├── index.html          # Ingredient input, fridge chips & search/roulette bar
-├── results.html        # Recipe cards grid + detail modal
-└── favorites.html      # Saved recipes management screen
+├── index.html          # Explore — ingredient input, chips, search/roulette, loading bar
+└── _results_section.html  # Shared results grid + empty state partial
 static/
 ├── css/style.css       # Custom styles layered on top of Tailwind
-└── js/app.js           # Client interactivity: fetch search, modal, favorites, spin
+└── js/app.js           # Client interactivity: fetch search, modal, loading, spin
 tests/
 └── test_web.py         # Flask route & end-to-end integration tests
 ```

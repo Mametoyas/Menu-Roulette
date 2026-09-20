@@ -152,6 +152,25 @@ def filter_and_rank(
     return scored
 
 
+def format_recipe(meal: Dict) -> Dict:
+    """Converts a TheMealDB meal dict into a GUI-friendly display dict.
+
+    Maps raw API fields (strMeal, strInstructions, strMealThumb ...) to
+    friendly keys ready for rendering in a GUI.
+    """
+    return {
+        "id": meal.get("idMeal"),
+        "name": meal.get("strMeal"),
+        "category": meal.get("strCategory"),
+        "area": meal.get("strArea"),
+        "image_url": meal.get("strMealThumb") or "",
+        "ingredients": extract_ingredients(meal),
+        "instructions": meal.get("strInstructions") or "",
+        "youtube_url": meal.get("strYoutube") or "",
+        "score": meal.get("score"),
+    }
+
+
 def pick_random_recipe(ranked_recipes: List[Dict]) -> Optional[Dict]:
     """Randomly selects from the top-scored recipes.
 

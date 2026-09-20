@@ -1,0 +1,23 @@
+<section id="results-section" class="hidden space-y-6">
+    <div class="flex items-center justify-between flex-wrap gap-2">
+        <h2 id="results-title" class="text-xl sm:text-2xl font-bold text-slate-800"></h2>
+        <div class="flex items-center gap-2 flex-wrap">
+            <span id="results-count" class="text-sm font-semibold text-slate-500 bg-white border border-slate-200 rounded-full px-3 py-1"></span>
+            <button id="clear-results" type="button"
+                    class="hidden text-xs font-semibold text-slate-400 hover:text-rose-500 transition">
+                <i class="fa-solid fa-rotate-left"></i> Clear
+            </button>
+        </div>
+    </div>
+    <div id="results-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
+
+<section id="empty-state" class="hidden text-center py-16 space-y-4">
+    <div class="w-20 h-20 mx-auto rounded-full bg-white shadow-inner flex items-center justify-center text-slate-300 text-3xl">
+        <i class="fa-solid fa-bowl-food"></i>
+    </div>
+    <div>
+        <h3 class="text-lg font-bold text-slate-600">No recipes found</h3>
+        <p class="text-sm text-slate-400">Try different ingredients, or check your spelling.</p>
+    </div>
+</section>

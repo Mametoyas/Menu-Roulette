@@ -26,6 +26,18 @@ def test_clean_ingredient_empty_error():
         clean_ingredient_input("   ,  ")
 
 
+def test_clean_ingredient_empty_string_error():
+    """Verify exception on a completely empty string."""
+    with pytest.raises(InvalidIngredientError):
+        clean_ingredient_input("")
+
+
+def test_clean_ingredient_whitespace_only_error():
+    """Verify exception on whitespace-only input."""
+    with pytest.raises(InvalidIngredientError):
+        clean_ingredient_input("   ")
+
+
 def test_filter_recipes_success():
     """Verify correct recipe filtering logic."""
     matches = filter_recipes_by_ingredients(["pork"])

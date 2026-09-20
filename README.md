@@ -294,8 +294,17 @@ pip install -r requirements.txt
 
 # Run
 
+### CLI (Sprints 1–2)
+
 ```bash
 python src/main.py
+```
+
+### Web App (Sprint 3)
+
+```bash
+python src/web_app.py
+# open http://127.0.0.1:5000 in your browser
 ```
 
 # Test
@@ -355,36 +364,41 @@ tests/
 | :--- | :--- | :--- |
 | Web Framework | `Flask` | HTTP server, routing, request handling |
 | Templating | Jinja2 (Flask) | Server-side HTML rendering |
-| Frontend | HTML5 + CSS (Tailwind CDN) + JS (`fetch`) | Responsive UI, detail modal, roulette spin |
-| State | In-Memory module store | Selected ingredients & favorites |
+| Frontend | HTML5 + CSS (Tailwind CDN) + JS (`fetch`) | Responsive UI, detail modal, loading bar, roulette spin |
+| State | In-Memory (page-scoped) | Selected ingredients |
 | Testing | `pytest` + Flask test client | Route & full-flow tests |
 
 ```text
 src/
-├── web_app.py          # Flask app factory, routes & app entry point
+├── web_app.py          # Flask app, routes & app entry point
 templates/
 ├── base.html           # Shared layout: header nav, footer, modal container
-├── index.html          # Ingredient input, fridge chips & search/roulette bar
-├── results.html        # Recipe cards grid + detail modal
-└── favorites.html      # Saved recipes management screen
+├── index.html          # Explore — ingredient input, chips, search/roulette, loading bar
+└── _results_section.html  # Shared results grid + empty state partial
 static/
 ├── css/style.css       # Custom styles layered on top of Tailwind
-└── js/app.js           # Client interactivity: fetch search, modal, favorites, spin
+└── js/app.js           # Client interactivity: fetch search, modal, loading, spin
 tests/
 └── test_web.py         # Flask route & end-to-end integration tests
 ```
+
+| Endpoint | Purpose |
+| :--- | :--- |
+| `GET /` | Explore page (hero, ingredient input, results) |
+| `POST /api/search` | `{ingredients}` → back-end engine → JSON result (async `fetch`) |
+| `GET /recipe/<id>` | Full recipe detail JSON (modal data) |
 
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
 | Planner | Jane | Sprint plan, architecture diagram, DoD, README update |
 | Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
-| Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
+| Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, loading bar |
 | Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
 
 **Definition of Done:**
 1. Web app launches without errors via `python src/web_app.py` and opens at `http://127.0.0.1:5000`.
-2. Ingredient search on the web page triggers a real TheMealDB API call and renders results as recipe cards.
+2. Ingredient search on the web page triggers a real TheMealDB API call and renders results as recipe cards; a loading progress bar appears below the Search bar while fetching.
 3. Clicking a recipe card opens a detail modal with full information (ingredients, measurements, instructions).
-4. Favorites can be saved, viewed, and removed from the web UI.
+4. The roulette button randomly recommends one recipe and opens it in the modal.
 5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
 6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).

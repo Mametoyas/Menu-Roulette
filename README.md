@@ -413,7 +413,7 @@ tests/
 
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
-| Planner | Jane | Sprint plan, architecture diagram, DoD, README update |
+| Planner | Benz | Sprint plan, architecture diagram, DoD, README update |
 | Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
 | Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, loading bar |
 | Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |

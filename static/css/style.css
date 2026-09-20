@@ -1,0 +1,197 @@
+/* Recipe Roulette — Sprint 3 custom styles on top of Tailwind CDN.
+   Follows DESIGN.md: warm culinary theme, soft shadows, glassmorphism. */
+
+:root {
+  --amber-500: #f59e0b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Kanit", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Navigation (DESIGN.md §7) ---------- */
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.nav-tab:hover {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+.nav-tab:active {
+  transform: scale(0.96);
+}
+
+.nav-tab.active {
+  background: #fffbeb;
+  color: #b45309;
+}
+
+@media (max-width: 640px) {
+  .nav-label {
+    display: none;
+  }
+}
+
+/* ---------- Loading progress (below Search bar) ---------- */
+.loading-spin {
+  animation: loading-spin 0.9s linear infinite;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-progress {
+  width: 40%;
+  background: linear-gradient(90deg, #f59e0b, #f97316, #10b981);
+  animation: loading-slide 1.1s ease-in-out infinite;
+}
+
+@keyframes loading-slide {
+  0% {
+    margin-left: -40%;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+/* ---------- Chips & badges ---------- */
+.select-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--amber-500);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.25);
+  animation: fade-enter 0.25s ease;
+}
+
+.select-chip .fa-xmark {
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.select-chip .fa-xmark:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ---------- Cards (DESIGN.md §9) ---------- */
+.recipe-card {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.recipe-card:hover {
+  transform: translateY(-2px);
+}
+
+.line-clamp-1,
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-1 {
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+/* ---------- Quick chips scrollbar (DESIGN.md §8) ---------- */
+#quick-chips::-webkit-scrollbar {
+  height: 4px;
+}
+
+#quick-chips::-webkit-scrollbar-thumb {
+  background: #fed7aa;
+  border-radius: 9999px;
+}
+
+#quick-chips::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Roulette spin (DESIGN.md §14) ---------- */
+.roulette-spin {
+  animation: roulette-spin 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes roulette-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* ---------- Modal (DESIGN.md §15) ---------- */
+.modal-enter {
+  animation: modal-enter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fade-enter {
+  animation: fade-enter 0.3s ease;
+}
+
+@keyframes fade-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Toast ---------- */
+#toast.success {
+  background: linear-gradient(90deg, #10b981, #0d9488);
+}
+
+#toast.danger {
+  background: linear-gradient(90deg, #f43f5e, #e11d48);
+}
+
+#toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

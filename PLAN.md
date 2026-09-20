@@ -80,43 +80,60 @@ $$\text{Score} = \frac{\text{Matched User Ingredients}}{\text{Total User Ingredi
 
 ---
 
-## Sprint 3: GUI Development & Full-Stack Integration
+## Sprint 3: Web Application Development & Full-Stack Integration
 
 ### Focus & Objectives
-Develop a **Graphical User Interface (GUI)** and integrate it with the Back-End engine from Sprints 1 & 2. Deliver a fully functional end-to-end application.
+Develop a **Web Application** using **Flask** and integrate it with the Back-End engine from Sprints 1 & 2. Deliver a fully functional end-to-end web app that runs in the browser. All business logic (validation, scoring, filtering, random pick) is reused directly from the pure back-end modules — the web layer is a thin presentation wrapper. UI follows the `DESIGN.md` design system (warm culinary style, Tailwind).
 
 ### Architecture & Tech Stack
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| GUI Framework | `Tkinter` / `CustomTkinter` | Main UI rendering |
-| Threading | `threading` (stdlib) | Non-blocking API calls |
-| Presentation | Views & Modals | Search, Recipe Card, Detail, Favorites |
+| Web Framework | `Flask` | HTTP server, routing, request handling |
+| Templating | Jinja2 (Flask) | Server-side HTML rendering |
+| Frontend | HTML5 + CSS (Tailwind CDN) + JS (`fetch`) | Responsive UI, detail modal, roulette spin |
+| State | In-Memory module store | Selected ingredients & favorites persistence |
+| Testing | `pytest` + Flask test client | Route & full-flow integration tests |
+
+### Web Endpoints (Route Map)
+| Method | Route | Purpose |
+| :--- | :--- | :--- |
+| GET | `/` | Home — ingredient input & search form |
+| GET | `/search` | `?ingredients=...` → back-end engine → results page |
+| GET | `/recipe/<meal_id>` | Full recipe detail (modal data) |
+| POST | `/favorites/<meal_id>` | Save a recipe to favorites |
+| DELETE | `/favorites/<meal_id>` | Remove a recipe from favorites |
+| GET | `/favorites` | View saved recipes |
+
 
 ### Key Modules & File Structure
 ```text
 src/
-├── gui/
-│   ├── app.py             # Main window & app entry point
-│   ├── search_view.py     # Ingredient input & search bar
-│   ├── recipe_card.py     # Recipe result card component
-│   ├── detail_modal.py    # Full recipe detail popup
-│   └── favorites_view.py  # Saved/favourites management screen
+├── web_app.py          # Flask app factory, routes & app entry point
+...
+templates/
+├── base.html           # Shared layout: header nav, footer, modal container
+├── index.html          # Ingredient input, fridge chips & search/roulette bar
+├── results.html        # Recipe cards grid + detail modal
+└── favorites.html      # Saved recipes management screen
+static/
+├── css/style.css       # Custom styles layered on top of Tailwind
+└── js/app.js           # Client interactivity: fetch search, modal, favorites, spin
 tests/
-└── test_gui.py            # GUI integration & interaction tests
+└── test_web.py         # Flask route & end-to-end integration tests
 ```
 
 ### Roles & Responsibilities
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
-| Planner | Jane | Sprint plan, architecture diagram, DoD |
-| Coder | Toey | `search_view.py`, input binding, threading |
-| Coder | Ter | `recipe_card.py`, `detail_modal.py`, `favorites_view.py` |
-| Debugger | Khong | GUI tests, QA report (`Sprint3.md`) |
+| Planner | Jane | Sprint plan, architecture diagram, DoD, README update |
+| Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
+| Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
+| Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
 
 ### Definition of Done (DoD)
-1. GUI launches without errors via `python -m src.main`.
-2. Ingredient search triggers real API call and displays results as recipe cards.
-3. Clicking a recipe card opens a detail modal with full information.
-4. Favorites can be saved, viewed, and removed.
-5. All API calls run on background threads — UI remains responsive at all times.
-6. PEP 8 compliant code passing all `pytest` test cases.
+1. Web app launches without errors via `python src/web_app.py` and opens at `http://127.0.0.1:5000`.
+2. Ingredient search on the web page triggers a real TheMealDB API call and renders results as recipe cards.
+3. Clicking a recipe card opens a detail modal with full information (ingredients, measurements, instructions).
+4. Favorites can be saved, viewed, and removed from the web UI.
+5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
+6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).

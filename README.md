@@ -99,7 +99,7 @@ Recipe Roulette follows a layered architecture that separates the user interface
 ```text
 +-------------------------------------+
 |         Presentation Layer          |
-|              (CLI UI)               |
+|            (Web UI / Flask)         |
 +------------------+------------------+
                    |
                    v
@@ -263,7 +263,7 @@ END
 | API | TheMealDB API |
 | Data Format | JSON |
 | Architecture | Layered Architecture |
-| Interface | CLI / GUI (Tkinter) |
+| Interface | CLI / Web (Flask + HTML/CSS/JS) |
 | Version Control | Git / GitHub |
 
 ---
@@ -345,41 +345,46 @@ tests/
 
 ---
 
-## Sprint 3 — GUI Development & Full-Stack Integration 📋
+## Sprint 3 — Web Application Development & Full-Stack Integration
 
-**Focus:** Develop a GUI and integrate it with the back-end engine from Sprints 1 & 2.
+**Focus:** Develop a Web Application (Flask) and integrate it with the back-end engine from Sprints 1 & 2. The UI follows the `DESIGN.md` design system.
 
 **Architecture & Tech Stack:**
 
 | Layer | Technology | Purpose |
 | :--- | :--- | :--- |
-| GUI Framework | `Tkinter` / `CustomTkinter` | Main UI rendering |
-| Threading | `threading` (stdlib) | Non-blocking API calls |
-| Presentation | Views & Modals | Search, Recipe Card, Detail, Favorites |
+| Web Framework | `Flask` | HTTP server, routing, request handling |
+| Templating | Jinja2 (Flask) | Server-side HTML rendering |
+| Frontend | HTML5 + CSS (Tailwind CDN) + JS (`fetch`) | Responsive UI, detail modal, roulette spin |
+| State | In-Memory module store | Selected ingredients & favorites |
+| Testing | `pytest` + Flask test client | Route & full-flow tests |
 
 ```text
 src/
-├── gui/
-│   ├── app.py             # Main window & app entry point
-│   ├── search_view.py     # Ingredient input & search bar
-│   ├── recipe_card.py     # Recipe result card component
-│   ├── detail_modal.py    # Full recipe detail popup
-│   └── favorites_view.py  # Saved/favourites management screen
+├── web_app.py          # Flask app factory, routes & app entry point
+templates/
+├── base.html           # Shared layout: header nav, footer, modal container
+├── index.html          # Ingredient input, fridge chips & search/roulette bar
+├── results.html        # Recipe cards grid + detail modal
+└── favorites.html      # Saved recipes management screen
+static/
+├── css/style.css       # Custom styles layered on top of Tailwind
+└── js/app.js           # Client interactivity: fetch search, modal, favorites, spin
 tests/
-└── test_gui.py            # GUI integration & interaction tests
+└── test_web.py         # Flask route & end-to-end integration tests
 ```
 
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
-| Planner | Jane | Sprint plan, architecture diagram, DoD |
-| Coder | Toey | `search_view.py`, input binding, threading |
-| Coder | Ter | `recipe_card.py`, `detail_modal.py`, `favorites_view.py` |
-| Debugger | Khong | GUI tests, QA report (`Sprint3.md`) |
+| Planner | Jane | Sprint plan, architecture diagram, DoD, README update |
+| Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
+| Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
+| Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
 
 **Definition of Done:**
-1. GUI launches without errors via `python src/main.py`.
-2. Ingredient search triggers real API call and displays results as recipe cards.
-3. Clicking a recipe card opens a detail modal with full information.
-4. Favorites can be saved, viewed, and removed.
-5. All API calls run on background threads — UI remains responsive at all times.
-6. PEP 8 compliant code passing all `pytest` test cases.
+1. Web app launches without errors via `python src/web_app.py` and opens at `http://127.0.0.1:5000`.
+2. Ingredient search on the web page triggers a real TheMealDB API call and renders results as recipe cards.
+3. Clicking a recipe card opens a detail modal with full information (ingredients, measurements, instructions).
+4. Favorites can be saved, viewed, and removed from the web UI.
+5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
+6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).

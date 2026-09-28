@@ -4,7 +4,7 @@
 
 # การประเมินเพื่อนร่วมกลุ่ม - Menu Roulette
 
-ทีม: Benz / Toey / Ter / Khong
+ทีม: Benz / Toey / Ter / Khong (Jane คือนามสมมติของ Benz)
 โปรเจกต์: Recipe Roulette (Flask + TheMealDB API)
 
 ไฟล์นี้เป็นแบบฟอร์มเปล่า สมาชิกแต่ละคนให้คะแนนเพื่อนอีก 3 คน
@@ -43,7 +43,7 @@
 |---|---|---|---|---|
 | Sprint 1 | Benz | Toey | Ter | Khong |
 | Sprint 2 | Toey | Khong | Benz | Ter |
-| Sprint 3 | Benz | Toey | Ter | Khong |
+| Sprint 3 | Jane | Toey | Ter | Khong |
 
 งานหลัก: src/utils.py, src/api_client.py, src/recipe_engine.py, src/main.py, src/web_app.py, templates/, static/, tests/, PLAN.md, CHANGELOG.md, SPRINT_REVIEW.md
 

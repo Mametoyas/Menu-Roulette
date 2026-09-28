@@ -1,4 +1,48 @@
-﻿# Recipe Roulette
+﻿<a id="top"></a>
+
+<div align="center">
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1000&color=F59E0B&center=true&vCenter=true&width=600&lines=Recipe+Roulette;Menu+Roulette;Script+Programming+Final+Project" />
+
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Pytest](https://img.shields.io/badge/pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+
+</div>
+
+---
+
+# Recipe Roulette
+
+โปรเจกต์ Final Project รายวิชา **Script Programming (CP352301)**
+เว็บสุ่มแนะนำเมนูอาหารจากวัตถุดิบที่มี พัฒนาด้วย Flask ดึงข้อมูลสูตรจาก TheMealDB API
+
+---
+
+## สารบัญ
+
+- [Introduction](#introduction)
+- [Objective](#objective)
+- [Problem](#problem)
+- [Solution](#solution)
+- [Project Architecture](#project-architecture)
+- [TheMealDB API](#themealdb-api)
+- [Algorithm](#algorithm)
+- [Overall Algorithm](#overall-algorithm)
+- [Technology Stack](#technology-stack)
+- [Setup](#setup)
+- [Run](#run)
+- [Deploy (Vercel)](#deploy-vercel)
+- [Test](#test)
+- [Project Status](#project-status)
+- [Members and Docs Index](#members-and-docs-index)
+
+---
+
 
 ## Introduction
 
@@ -425,3 +469,26 @@ tests/
 4. The roulette button randomly recommends one recipe and opens it in the modal.
 5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
 6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).
+
+---
+
+# Members and Docs Index
+
+Team: Benz / Toey / Ter / Khong - details in MEMBERS.md
+
+| Topic | File |
+|---|---|
+| Members and roles | MEMBERS.md |
+| Sprint plan | PLAN.md |
+| UI design system | DESIGN.md |
+| Sprint 1 submission | Sprint1/README.md |
+| Sprint 2 submission (due 25/09/2569) | Sprint2/README.md |
+| Sprint 3 submission | Sprint3/README.md |
+| Change history | CHANGELOG.md |
+| Review + QA log + retrospective | SPRINT_REVIEW.md |
+| Peer evaluation form | PEER_EVALUATION.md |
+| Course guidelines | cp352301_final_project_guidelines.md |
+
+---
+
+[Back to top](#top)

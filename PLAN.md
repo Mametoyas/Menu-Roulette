@@ -1,4 +1,8 @@
-﻿# Sprint 1 Plan: Recipe Roulette (Base Logic & Engine)
+﻿<a id="top"></a>
+
+[README](README.md) | [Members](MEMBERS.md) | [Plan](PLAN.md) | [Design](DESIGN.md) | [Sprint1](Sprint1/README.md) | [Sprint2](Sprint2/README.md) | [Sprint3](Sprint3/README.md) | [Changelog](CHANGELOG.md) | [Review](SPRINT_REVIEW.md) | [Peer Eval](PEER_EVALUATION.md)
+
+# Sprint 1 Plan: Recipe Roulette (Base Logic & Engine)
 
 ## Project Overview
 - Topic: Recipe Roulette (Random recipe search by ingredients)
@@ -124,7 +128,7 @@ tests/
 ### Roles & Responsibilities
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
-| Planner | Jane | Sprint plan, architecture diagram, DoD, README update |
+| Planner | Benz | Sprint plan, architecture diagram, DoD, README update |
 | Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
 | Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
 | Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
@@ -136,3 +140,7 @@ tests/
 4. Favorites can be saved, viewed, and removed from the web UI.
 5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
 6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).
+
+---
+
+[Back to top](#top) | [README](README.md)

@@ -526,19 +526,19 @@ Team: Benz / Toey / Ter / Khong - details in MEMBERS.md
 
 | Topic | File |
 |---|---|
-| Members and roles | MEMBERS.md |
-| Sprint plan | PLAN.md |
-| UI design system | DESIGN.md |
-| Sprint 1 submission | Sprint1/README.md |
-| Sprint 2 submission (due 25/09/2569) | Sprint2/README.md |
-| Sprint 3 submission | Sprint3/README.md |
-| Change history | CHANGELOG.md |
-| Review + QA log + retrospective | SPRINT_REVIEW.md |
-| Peer evaluation form | PEER_EVALUATION.md |
-| AI log Sprint 1 | Sprint1/LEARNINGLOG.md |
-| AI log Sprint 2 | Sprint2/LEARNINGLOG.md |
-| AI log Sprint 3 | Sprint3/LEARNINGLOG.md |
-| Course guidelines | cp352301_final_project_guidelines.md |
+| Members and roles | [MEMBERS.md](MEMBERS.md) |
+| Sprint plan | [PLAN.md](PLAN.md) |
+| UI design system | [DESIGN.md](DESIGN.md) |
+| Sprint 1 submission | [Sprint1/README.md](Sprint1/README.md) |
+| Sprint 2 submission (due 25/09/2569) | [Sprint2/README.md](Sprint2/README.md) |
+| Sprint 3 submission | [Sprint3/README.md](Sprint3/README.md) |
+| Change history | [CHANGELOG.md](CHANGELOG.md) |
+| Review + QA log + retrospective | [SPRINT_REVIEW.md](SPRINT_REVIEW.md) |
+| Peer evaluation form | [PEER_EVALUATION.md](PEER_EVALUATION.md) |
+| AI log Sprint 1 | [LEARNINGLOG.md](Sprint1/LEARNINGLOG.md) |
+| AI log Sprint 2 | [LEARNINGLOG.md](Sprint2/LEARNINGLOG.md) |
+| AI log Sprint 3 | [LEARNINGLOG.md](Sprint3/LEARNINGLOG.md) |
+| Course guidelines | [guidelines](cp352301_final_project_guidelines.md) |
 
 ---
 

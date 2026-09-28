@@ -4,39 +4,98 @@
 
 # Changelog - Menu Roulette
 
-## Sprint 1 - Base Logic and Engine (14/09/2569 19:32 - 15/09/2569 09:48, due 18/09/2569)
+Submission focus: Sprint 2 due 25/09/2569.
 
-Objective: Core modular functions, mock data engine, input sanitization.
-Deliverables:
-- src/utils.py - clean_ingredient_input, InvalidIngredientError
-- src/recipe_engine.py - MOCK_RECIPES 5 recipes, filter_recipes_by_ingredients
-- src/main.py - early CLI entry
-- tests/test_sprint1.py
-- PLAN.md Sprint1 section, Sprint1.md QA report, img/Sprint1_report.png
+## [v0.1.0] - Sprint 1: Base Logic and Engine (14/09/2569 19:32 - 15/09/2569 09:48, due 18/09/2569)
 
-## Sprint 2 - Back-End and API Integration (19/09/2569 16:08 - 20/09/2569 21:55, due 25/09/2569)
+### Added
 
-Objective: Live TheMealDB API, scoring/filter/rank, CI/CD.
-Deliverables:
-- src/api_client.py - search_by_ingredient, get_meal_by_id, extract_ingredients
-- src/recipe_engine.py - score_recipe, filter_and_rank, pick_random_recipe, format_recipe
-- src/main.py - run_roulette_simulation CLI entry
-- tests/test_api.py, tests/test_engine.py, tests/test_main.py
-- .github/workflows/test.yml
-- PLAN.md Sprint2 section, Sprint2.md QA report, img/Sprint2_TEST_report.png
-- DESIGN.md GUI design basis
-Tests: 39 passed (10+19+6+4)
+- Initialized project structure with src/, tests/, img/
+- Input cleaning and validation (clean_ingredient_input, InvalidIngredientError)
+- Mock recipe dataset with 5 TheMealDB-schema recipes + ingredient filter
+- Early CLI entry point
+- Sprint 1 unit tests (tests/test_sprint1.py)
+- PLAN.md Sprint 1 section + Sprint1.md QA report
 
-## Sprint 3 - Web App Full-Stack (20/09/2569 22:05 - 20/09/2569 23:57, due 02/10/2569)
+### Files
 
-Objective: Flask web app reusing Sprint 1+2 engine, async fetch, modal, roulette.
-Deliverables:
-- src/web_app.py - GET /, POST /api/search, GET /recipe/<id>
-- src/app.py - Vercel entry
-- templates/base.html, templates/index.html, templates/_results_section.html
-- static/css/style.css, static/js/app.js
-- tests/test_web.py
-- PLAN.md Sprint3 section, README Sprint3 section
+```text
+src/
+├── utils.py            <- Input cleaning + validation
+├── recipe_engine.py    <- MOCK_RECIPES + filter_recipes_by_ingredients
+└── main.py             <- Early CLI entry
+
+tests/
+└── test_sprint1.py     <- Input + filter unit tests
+
+PLAN.md                <- Sprint 1 plan + DoD
+Sprint1.md             <- QA report
+pytest.ini             <- pytest config (pythonpath = .)
+requirements.txt       <- pytest + flake8 + black
+```
+
+## [v0.2.0] - Sprint 2: Back-End and API Integration (19/09/2569 16:08 - 20/09/2569 21:55, due 25/09/2569)
+
+### Added
+
+- Live TheMealDB API client (search_by_ingredient, get_meal_by_id, extract_ingredients, APIError)
+- Match scoring, filter_and_rank, top-score random pick, GUI-friendly format_recipe
+- CLI pipeline run_roulette_simulation (clean -> search/score/rank -> format -> pick)
+- Mocked API/engine/main tests (39 tests, no live network)
+- CI workflow: pytest on push/PR to main/develop
+- PLAN.md Sprint 2 section + Sprint2.md QA report + DESIGN.md basis
+
+### Files
+
+```text
+src/
+├── api_client.py       <- TheMealDB requests + JSON parse + error handling
+├── recipe_engine.py    <- score/filter/rank/pick/format
+└── main.py             <- run_roulette_simulation + console
+
+tests/
+├── test_api.py         <- API client tests, mocked HTTP (10 tests)
+├── test_engine.py      <- scoring/rank/pick/format tests (19 tests)
+└── test_main.py        <- entry pipeline tests (6 tests)
+
+.github/workflows/
+└── test.yml            <- CI: pytest -v on Ubuntu Python 3.11
+
+PLAN.md                <- Sprint 2 plan + DoD
+Sprint2.md             <- QA report
+DESIGN.md              <- GUI design basis
+```
+
+## [v0.3.0] - Sprint 3: Web App Full-Stack (20/09/2569 22:05 - 20/09/2569 23:57, due 02/10/2569)
+
+### Added
+
+- Flask web app reusing Sprint 1+2 engine (thin presentation layer)
+- Routes: GET / explore page, POST /api/search JSON, GET /recipe/<id> detail
+- Templates + static UI: cards, detail modal, loading bar, roulette spin (DESIGN.md)
+- Flask route + integration tests (tests/test_web.py, 6 tests)
+- Vercel deploy entry (src/app.py re-export)
+- PLAN.md Sprint 3 section + README Sprint 3 section
+
+### Files
+
+```text
+src/
+├── web_app.py          <- Flask app + routes (entry: python src/web_app.py)
+└── app.py              <- Vercel entry, re-exports app
+
+templates/
+├── base.html           <- Layout: header nav, footer, modal container
+├── index.html          <- Explore: input, chips, search/roulette, loading bar
+└── _results_section.html <- Results grid + empty state partial
+
+static/
+├── css/style.css       <- Warm culinary theme on top of Tailwind
+└── js/app.js           <- fetch search, modal, spin, toast
+
+tests/
+└── test_web.py         <- Flask test client tests (6 tests)
+```
 
 Note: Sprint1/ Sprint2/ Sprint3/ folders are submission pointers - real code stays in src//templates//static//tests/.
 

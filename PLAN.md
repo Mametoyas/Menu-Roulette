@@ -1,4 +1,4 @@
-# Sprint 1 Plan: Recipe Roulette (Base Logic & Engine)
+﻿# Sprint 1 Plan: Recipe Roulette (Base Logic & Engine)
 
 ## Project Overview
 - Topic: Recipe Roulette (Random recipe search by ingredients)
@@ -26,7 +26,7 @@
 
 ### การแบ่งบทบาทหน้าที่ประจำ Sprint 2 (Rotation Roles)
 - **เต้ย (Planner)**: รับผิดชอบการบริหารจัดการ Kanban Board, วางแผนและจัดสรร Task Backlog, อัปเดตเอกสาร PLAN.md และ README.md, กำหนดมาตรฐาน Git Branching Strategy และ Code Review Checklist
-- **โขง (Coder)**: รับผิดชอบการพัฒนาโมดูล src/api_client.py เชื่อมต่อ TheMealDB API, ดึงข้อมูล JSON และจัดการ Error/HTTP Status Code ต่างๆ โดยใช้ .env ด้วยในการจัดการ environment variables
+- **โขง (Coder)**: รับผิดชอบการพัฒนาโมดูล src/api_client.py เชื่อมต่อ TheMealDB API, ดึงข้อมูล JSON และจัดการ Error/HTTP Status Code ต่างๆ โดยใช้ environment variable (MEALDB_BASE_URL) ผ่าน os.getenv พร้อมค่า default
 - **เบ็นซ์ (Coder)**: รับผิดชอบการพัฒนาโมดูล src/recipe_engine.py สำหรับประมวลผลข้อมูลวัตถุดิบ คำนวณ Match Score, Filtering และสุ่มเลือกเมนูแนะนำ (Random Recommendation)
 - **เตอร์ (Debugger)**: รับผิดชอบการเขียน Unit Test แบบ Mocking API (tests/test_api.py, tests/test_engine.py), การตั้งค่า CI/CD Automation ผ่าน GitHub Actions (.github/workflows/test.yml) และจัดทำ QA Report
 

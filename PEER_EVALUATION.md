@@ -4,7 +4,7 @@
 
 # การประเมินเพื่อนร่วมกลุ่ม - Menu Roulette
 
-ทีม: Benz / Toey / Ter / Khong )
+ทีม: Benz / Toey / Ter / Khong
 โปรเจกต์: Recipe Roulette (Flask + TheMealDB API)
 
 ไฟล์นี้เป็นแบบฟอร์มเปล่า สมาชิกแต่ละคนให้คะแนนเพื่อนอีก 3 คน

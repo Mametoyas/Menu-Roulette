@@ -34,6 +34,7 @@
 - [Algorithm](#algorithm)
 - [Overall Algorithm](#overall-algorithm)
 - [Technology Stack](#technology-stack)
+- [โครงสร้างโปรเจกต์](#โครงสร้างโปรเจกต์)
 - [Setup](#setup)
 - [Run](#run)
 - [Deploy (Vercel)](#deploy-vercel)
@@ -312,6 +313,53 @@ END
 
 ---
 
+## โครงสร้างโปรเจกต์
+
+```text
+Menu-Roulette/
+├── src/
+│   ├── api_client.py       # TheMealDB API client
+│   ├── app.py              # Vercel entry
+│   ├── main.py             # CLI entry
+│   ├── recipe_engine.py    # scoring / filter / rank / pick
+│   ├── utils.py            # input cleaning + validation
+│   ├── web_app.py          # Flask routes
+│   └── __init__.py
+├── templates/
+│   ├── base.html
+│   ├── index.html
+│   └── _results_section.html
+├── static/
+│   ├── css/style.css
+│   └── js/app.js
+├── tests/
+│   ├── test_api.py
+│   ├── test_engine.py
+│   ├── test_main.py
+│   ├── test_sprint1.py
+│   └── test_web.py
+├── Sprint1/                # Sprint 1 submission pointer
+├── Sprint2/                # Sprint 2 submission pointer
+├── Sprint3/                # Sprint 3 submission pointer
+├── .github/workflows/
+│   └── test.yml            # CI: pytest
+├── img/                    # QA report screenshots
+├── PLAN.md
+├── DESIGN.md
+├── CHANGELOG.md
+├── SPRINT_REVIEW.md
+├── PEER_EVALUATION.md
+├── MEMBERS.md
+├── Sprint1.md
+├── Sprint2.md
+├── README.md
+├── requirements.txt
+├── pytest.ini
+└── vercel.json
+```
+
+---
+
 # Setup
 
 ### Option 1: venv
@@ -487,6 +535,9 @@ Team: Benz / Toey / Ter / Khong - details in MEMBERS.md
 | Change history | CHANGELOG.md |
 | Review + QA log + retrospective | SPRINT_REVIEW.md |
 | Peer evaluation form | PEER_EVALUATION.md |
+| AI log Sprint 1 | Sprint1/LEARNINGLOG.md |
+| AI log Sprint 2 | Sprint2/LEARNINGLOG.md |
+| AI log Sprint 3 | Sprint3/LEARNINGLOG.md |
 | Course guidelines | cp352301_final_project_guidelines.md |
 
 ---

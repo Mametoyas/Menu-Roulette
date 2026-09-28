@@ -64,3 +64,5 @@ Backlinks: ../README.md (index) / ../MEMBERS.md (team) / ../SPRINT_REVIEW.md (QA
 ---
 
 [Back to top](#top) | [README](../README.md)
+
+AI log ฉบับเต็มของ Sprint นี้: [LEARNINGLOG.md](LEARNINGLOG.md)

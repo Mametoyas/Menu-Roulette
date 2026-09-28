@@ -1,4 +1,4 @@
-# Recipe Roulette
+﻿# Recipe Roulette
 
 ## Introduction
 
@@ -371,7 +371,7 @@ tests/
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
 | Planner | Toey | Kanban Board management, Sprint plan, README/PLAN updates, Git branching strategy |
-| Coder | Khong | `src/api_client.py` — TheMealDB API client, `.env` config, and error handling |
+| Coder | Khong | `src/api_client.py` — TheMealDB API client, `env BASE_URL` config, and error handling |
 | Coder | Benz | `src/recipe_engine.py` — match score, filtering & random recommendation |
 | Debugger | Ter | Unit tests (`tests/`), CI/CD workflow, QA report |
 

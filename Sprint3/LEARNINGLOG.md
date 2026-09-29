@@ -4,10 +4,10 @@
 
 # ประวัติการใช้ AI - Sprint 3 (AI Usage Log)
 
-โปรเจกต์: Recipe Roulette (TheMealDB) | ช่วงงาน: 20/09/2569 (ส่ง 02/10/2569) | ทีมตาม PLAN/Readme: Benz Planner / Toey Coder (routes) / Ter Coder (UI) / Khong Debugger (tests)
+โปรเจกต์: Recipe Roulette (TheMealDB) | ช่วงงาน: 20/09/2569 (ส่ง 02/10/2569) | ทีมตาม PLAN/README: Toey Planner / Khong Coder (routes) / Benz Coder (UI) / Ter Debugger (tests)
 
 
-### Step 1: วางแผน Sprint 3 (ผู้รับผิดชอบ: Benz, Planner)
+### Step 1: วางแผน Sprint 3 (ผู้รับผิดชอบ: Toey, Planner)
 
 **User Prompt:**
 > ช่วยวาง Sprint 3 หน่อย เอา Flask ห่อ engine Sprint 1+2 แบบไม่แตะ logic ขอ route GET / POST /api/search GET /recipe/<id> หน้า Explore มี chips loading modal roulette ตาม DESIGN.md
@@ -17,7 +17,7 @@ AI เสนอ thin presentation layer เรียก run_roulette_simulation 
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** ยึด DoD 6 ข้อ (เปิด 127.0.0.1:5000 / การ์ด / modal / roulette / async / pytest ผ่าน)
 
-### Step 2: เพิ่ม format_recipe + ผูก main.py (ผู้รับผิดชอบ: Toey, Coder)
+### Step 2: เพิ่ม format_recipe + ผูก main.py (ผู้รับผิดชอบ: Khong/Benz, Coder)
 
 **User Prompt:**
 > เพิ่ม format_recipe ใน engine หน่อย map strMeal/strCategory/strArea/strMealThumb/strInstructions/strYoutube + ingredients + score คง score ผ่านมาด้วย แล้วแก้ main.py ให้ format ทั้ง top_recipes และ selected_recipe เป็น GUI-ready dict
@@ -103,7 +103,7 @@ if __name__ == "__main__":  # pragma: no cover
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** เทส format 3 เคสใน test_engine (ดู Step 6)
 
-### Step 3: เขียน src/web_app.py + src/app.py (ผู้รับผิดชอบ: Toey, Coder) (เรียบเรียงใหม่)
+### Step 3: เขียน src/web_app.py + src/app.py (ผู้รับผิดชอบ: Khong, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียน Flask web_app.py หน่อย route GET / เรนเดอร์ index, POST /api/search รับ JSON ingredients ยิง run_roulette_simulation, GET /recipe/<id> คืน format_recipe (404 ถ้าไม่เจอ) anchor template/static ที่ repo root ให้รันได้ทั้ง python src/web_app.py และ pytest ส่วน app.py ให้ re-export app เฉยๆ ไว้ให้ Vercel
@@ -216,7 +216,7 @@ from web_app import app  # noqa: E402
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** แก้ path แตกต่างระหว่างรันตรงกับ pytest ด้วย PROJECT_ROOT (ดู SPRINT_REVIEW Whoops Sprint 3)
 
-### Step 4: เขียน templates 3 ไฟล์ (ผู้รับผิดชอบ: Ter, Coder) (เรียบเรียงใหม่)
+### Step 4: เขียน templates 3 ไฟล์ (ผู้รับผิดชอบ: Benz, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียน templates หน่อย base.html (layout + header/footer + modal/toast container + Tailwind/Kanit/FontAwesome), index.html (hero + input + quick chips + selected + search/roulette + loading bar), _results_section.html (grid + empty state) ตาม DESIGN.md
@@ -380,7 +380,7 @@ AI ให้ 3 ไฟล์ด้านล่าง
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** ตรวจ responsive + modal/loading ตาม DoD Sprint 3
 
-### Step 5: เขียน static/css/style.css + static/js/app.js (ผู้รับผิดชอบ: Ter, Coder) (เรียบเรียงใหม่)
+### Step 5: เขียน static/css/style.css + static/js/app.js (ผู้รับผิดชอบ: Benz, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียน static หน่อย style.css (Kanit + nav/loading/chips/cards/modal/toast/roulette-spin ตาม DESIGN.md ทับ Tailwind) กับ app.js (chips state, fetch POST /api/search, render การ์ด, modal, roulette auto-open, loading, toast, escapeHtml กัน XSS)
@@ -1027,7 +1027,7 @@ body {
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** ตรวจ spin/modal/loading ตรง DESIGN.md 14-15 + escape ทุกจุด render
 
-### Step 6: เขียน tests/test_web.py + เติมเทส format/console (ผู้รับผิดชอบ: Khong, Debugger) (เรียบเรียงใหม่)
+### Step 6: เขียน tests/test_web.py + เติมเทส format/console (ผู้รับผิดชอบ: Ter, Debugger) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียน test_web.py ด้วย Flask test client หน่อย mock run_roulette_simulation กับ get_meal_by_id เทส index/search สำเร็จ/search invalid/search error/detail/detail-404 รวม 6 เทส แล้วเติมเทส format 3 เคสใน test_engine กับแก้ test_main ให้ตรวจ formatted dict
@@ -1359,12 +1359,12 @@ from web_app import app  # noqa: E402
 
 | ขั้นตอน | ไฟล์ | ผู้รับผิดชอบ | สิ่งที่ AI ช่วย | สิ่งที่ทีมทำเอง |
 |---|---|---|---|---|
-| 1 วางแผน | - (PLAN) | Benz | เสนอ thin layer + 3 routes | เขียน PLAN/DoD เอง |
-| 2 format | engine (+19) + main | Toey | mapping + ผูก formatted dict | เติมเทส format |
-| 3 web | web_app.py + app.py | Toey | routes + anchor + re-export | แก้ path 2 โหมด |
-| 4 templates | base/index/results (142 บรรทัด) | Ter | layout ตาม DESIGN | ตรวจ responsive/modal |
-| 5 static | style.css + app.js (629 บรรทัด) | Ter | theme + fetch/modal/spin | ตรวจ XSS escape |
-| 6 tests | test_web + เติม engine/main | Khong | โค้ด mock + client | รันเขียว |
+| 1 วางแผน | - (PLAN) | Toey | เสนอ thin layer + 3 routes | เขียน PLAN/DoD เอง |
+| 2 format | engine (+19) + main | Khong/Benz | mapping + ผูก formatted dict | เติมเทส format |
+| 3 web | web_app.py + app.py | Khong | routes + anchor + re-export | แก้ path 2 โหมด |
+| 4 templates | base/index/results (142 บรรทัด) | Benz | layout ตาม DESIGN | ตรวจ responsive/modal |
+| 5 static | style.css + app.js (629 บรรทัด) | Benz | theme + fetch/modal/spin | ตรวจ XSS escape |
+| 6 tests | test_web + เติม engine/main | Ter | โค้ด mock + client | รันเขียว |
 | 7 env/deploy | requirements + app/vercel/api | ทีม | เติม Flask + entry 2 แบบ | เลือก src/app.py |
 
 ---

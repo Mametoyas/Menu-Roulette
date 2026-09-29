@@ -26,16 +26,16 @@
 |---|---|---|---|---|
 | Sprint 1 (14-15/09/2569) | Benz | Toey | Ter | Khong |
 | Sprint 2 (19-20/09/2569) | Toey | Khong | Benz | Ter |
-| Sprint 3 (20/09/2569) | Benz | Toey | Ter | Khong |
+| Sprint 3 (20/09/2569) | Toey | Khong | Benz | Ter |
 
 ## งานที่รับผิดชอบ (หลักฐานประเมิน)
 
 | สมาชิก | งานหลัก | ไฟล์อ้างอิง |
 |---|---|---|
-| Benz | สถาปัตยกรรม แผน Sprint 1 + Sprint 3, engine scoring/filter | PLAN.md, src/recipe_engine.py |
-| Toey | text utils, Kanban/แผน Sprint 2, web routes | src/utils.py, src/web_app.py |
-| Ter | mock dataset/engine, tests + CI, UI templates | src/recipe_engine.py, tests/, templates/ |
-| Khong | QA Sprint 1, api_client, QA web | tests/test_sprint1.py, src/api_client.py, tests/test_web.py |
+| Benz | แผน Sprint 1, engine scoring/filter, UI templates Sprint 3 | PLAN.md, src/recipe_engine.py, templates/, static/ |
+| Toey | text utils, Kanban/แผน Sprint 2 + แผน Sprint 3, web routes | src/utils.py, src/web_app.py |
+| Ter | mock dataset/engine, tests + CI, QA web Sprint 3 | src/recipe_engine.py, tests/ |
+| Khong | QA Sprint 1, api_client, web routes Sprint 3 | tests/test_sprint1.py, src/api_client.py, src/web_app.py |
 
 ## เอกสารที่เกี่ยวข้อง
 

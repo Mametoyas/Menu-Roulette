@@ -33,7 +33,7 @@ Full code lives in repo root src//templates//static/ - this folder is the Sprint
 
 ## Role-Based Rubrics - Sprint 3 (45 points)
 
-Team: Planner Benz / Coder Toey (routes + backend binding) / Coder Ter (templates + static UI) / Debugger Khong
+Team: Planner Toey / Coder Khong (routes + backend binding) / Coder Benz (templates + static UI) / Debugger Ter
 
 ### Planner (15)
 

@@ -43,7 +43,7 @@
 |---|---|---|---|---|
 | Sprint 1 | Benz | Toey | Ter | Khong |
 | Sprint 2 | Toey | Khong | Benz | Ter |
-| Sprint 3 | Benz | Toey | Ter | Khong |
+| Sprint 3 | Toey | Khong | Benz | Ter |
 
 งานหลัก: src/utils.py, src/api_client.py, src/recipe_engine.py, src/main.py, src/web_app.py, templates/, static/, tests/, PLAN.md, CHANGELOG.md, SPRINT_REVIEW.md
 

@@ -128,10 +128,10 @@ tests/
 ### Roles & Responsibilities
 | Role | Member | Deliverable |
 | :--- | :--- | :--- |
-| Planner | Benz | Sprint plan, architecture diagram, DoD, README update |
-| Coder | Toey | `web_app.py` routes, search flow binding, back-end integration |
-| Coder | Ter | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
-| Debugger | Khong | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
+| Planner | Toey | Sprint plan, architecture diagram, DoD, README update |
+| Coder | Khong | `web_app.py` routes, search flow binding, back-end integration |
+| Coder | Benz | `templates/` + `static/` UI: recipe cards, detail modal, favorites view |
+| Debugger | Ter | `test_web.py` tests, CI workflow update, QA report (`Sprint3.md`) |
 
 ### Definition of Done (DoD)
 1. Web app launches without errors via `python src/web_app.py` and opens at `http://127.0.0.1:5000`.

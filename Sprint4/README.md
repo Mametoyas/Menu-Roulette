@@ -29,10 +29,10 @@
 5. โค้ดผ่านมาตรฐาน PEP 8 และ Unit Tests ใน `pytest` ผ่าน 100%
 
 ## Role-Based Assignment - Final Sprint
-- **Planner (Ter)**: กำหนด Integration Spec, แผนสคริปต์ Demo 5 นาที, อัปเดตเอกสาร `PLAN.md` และ `README.md`
-- **Coder 1 (Khong)**: พัฒนา Canvas Roulette Wheel, Animation Easing, Confetti Effect, และ Shopping List
+- **Planner (Khong)**: กำหนด Integration Spec, แผนสคริปต์ Demo 5 นาที, อัปเดตเอกสาร `PLAN.md` และ `README.md`
+- **Coder 1 (Toey)**: พัฒนา Canvas Roulette Wheel, Animation Easing, Confetti Effect, และ Shopping List
 - **Coder 2 (Benz)**: พัฒนา Navigation Tabs (Favorites), LocalStorage Engine, และ Cuisine Filter
-- **Debugger (Toey)**: เขียน Unit Tests สำหรับ Engine/Web ใหม่, ตรวจสอบ Responsive ทุกขนาดหน้าจอ, จัดทำ Final QA Log
+- **Debugger (Ter)**: เขียน Unit Tests สำหรับ Engine/Web ใหม่, ตรวจสอบ Responsive ทุกขนาดหน้าจอ, จัดทำ Final QA Log
 
 ---
 

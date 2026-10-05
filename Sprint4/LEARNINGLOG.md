@@ -4,7 +4,7 @@
 
 # ประวัติการใช้ AI - Sprint 4 (AI Usage Log)
 
-โปรเจกต์: Recipe Roulette (TheMealDB) | ช่วงงาน: 05/10/2569 | ทีมตาม Sprint4/README: Ter Planner / Khong Coder (wheel+shopping) / Benz Coder (tabs/filter) / Toey Debugger (tests)
+โปรเจกต์: Recipe Roulette (TheMealDB) | ช่วงงาน: 05/10/2569 | ทีมตาม Sprint4/README: Khong Planner / Toey Coder (wheel+shopping) / Benz Coder (tabs/filter) / Ter Debugger (tests)
 
 ## หมายเหตุด้านความถูกต้อง
 
@@ -12,7 +12,7 @@
 - บทสนทนา User Prompt เรียบเรียงใหม่จาก Sprint4/README + โค้ดจริง ทุก Step ติดป้าย (เรียบเรียงใหม่)
 - คำถามก่อนลงมือ (ที่เก็บ favorites / scope ทีละส่วน / confetti วาดเอง / filter ฝั่ง client) อยู่ในแชต ไม่รวมในไฟล์นี้
 
-### Step 1: วางแผน Sprint 4 (ผู้รับผิดชอบ: Ter, Planner) (เรียบเรียงใหม่)
+### Step 1: วางแผน Sprint 4 (ผู้รับผิดชอบ: Khong, Planner) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > ช่วยแตกงาน Sprint4/README เป็น 4 ฟีเจอร์ (วงล้อ canvas+confetti / favorites localStorage / shopping list / filter client) ให้หน่อย ถามก่อนตรงไหนกระทบเกรดหรือสถาปัตย์
@@ -22,7 +22,7 @@ AI ถาม 4 ข้อ (ที่เก็บ favorites / scope / confetti / f
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** ยืนยัน favorites เก็บเครื่องไม่ล็อกอิน ไม่ใช้ไฟล์ server
 
-### Step 2: วงล้อ canvas + confetti วาดเอง (ผู้รับผิดชอบ: Khong, Coder) (เรียบเรียงใหม่)
+### Step 2: วงล้อ canvas + confetti วาดเอง (ผู้รับผิดชอบ: Toey, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียนวงล้อ roulette ใน app.js หน่อย เอาชื่อจาก top_recipes (สูงสุด 10 ชื่อ มีผู้ชนะรวมอยู่แน่) canvas 320 หมุน ease-out ลงตรงช่องผู้ชนะ <2 ชิ้น fallback เปิด modal เดิม รองรับ reduced-motion จบยิง confetti วาดเองไม่ใช้ CDN แล้วต่อปุ่ม Spin เดิม
@@ -314,7 +314,7 @@ AI อธิบายมุม landing (target = -90 องศาลบจุด
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** แก้ quote ชนใน wheelHtml (ตรวจ node --check), แก้มุมคลาด quarter-turn, พิสูจน์คณิตด้วย node (n=3/7/10 ลงตรงทุกช่อง)
 
-### Step 3: tests/test_final_sprint.py (ผู้รับผิดชอบ: Toey, Debugger) (เรียบเรียงใหม่)
+### Step 3: tests/test_final_sprint.py (ผู้รับผิดชอบ: Ter, Debugger) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > เขียน tests/test_final_sprint.py เทสสัญญา data ที่วงล้อใช้ (top มี id+name ครบ ผู้ชนะอยู่ใน top, เคส 1 ชิ้น, เคสว่าง, ผู้ชนะคะแนนท็อป) mock run_roulette_simulation ทั้งหมด
@@ -443,7 +443,7 @@ def test_wheel_winner_comes_from_top_scores(mock_run, client):
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** แก้ docstring หลุด quote 1 จุด รัน pytest ได้ 53 passed
 
-### Step 4: Favorites localStorage + tab (ผู้รับผิดชอบ: Benz, Coder) (เรียบเรียงใหม่)
+### Step 4: Favorites localStorage + tab (ผู้รับผิดชอบ: Toey, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > ทำ favorites ไม่ล็อกอินเก็บ localStorage หน่อย มี store (load/save/toggle/badge), หัวใจบนการ์ดกดแล้วไม่เปิด modal, tab Favorites + badge ใน nav, ปุ่ม Save ใน modal, อยู่หน้า favorites กดลบแล้วรีเฟรชทันที
@@ -609,7 +609,7 @@ AI อธิบาย store + 2 views (explore/favorites) พร้อมโค�
 
 **สิ่งที่ทีมตรวจสอบ/ปรับเอง:** รื้อ nav ที่พันกันตอนแก้ครั้งแรก ผ่าตัดรายบรรทัดจนสะอาด
 
-### Step 5: Shopping list + ปุ่ม copy (ผู้รับผิดชอบ: Khong, Coder) (เรียบเรียงใหม่)
+### Step 5: Shopping list + ปุ่ม copy (ผู้รับผิดชอบ: Toey, Coder) (เรียบเรียงใหม่)
 
 **User Prompt:**
 > ทำ shopping list ใน modal หน่อย เทียบ ingredients กับ query ที่กรอก อันไหนขาดติดป้าย missing มีแถบบอกจำนวน + ปุ่ม copy (มี fallback เบราว์เซอร์เก่า) toast แจ้งผล
@@ -872,11 +872,11 @@ AI แก้เป็นจุดเล็กด้านล่าง (เลข
 
 | ขั้นตอน | ไฟล์ | ผู้รับผิดชอบ | สิ่งที่ AI ช่วย | สิ่งที่ทีมทำเอง |
 |---|---|---|---|---|
-| 1 วางแผน | - | Ter | ถาม 4 ข้อก่อนลงมือ | ตอบ scope ทีละส่วน |
-| 2 วงล้อ | app.js + style.css | Khong | canvas+easing+confetti | แก้ quote/มุม + พิสูจน์คณิต |
-| 3 เทส | test_final_sprint.py | Toey | 4 เทส mock | แก้ docstring + รันเขียว |
-| 4 favorites | app.js + base.html + css | Benz | store/views/nav | รื้อ nav ที่พัน + delegation หายใส่กลับ |
-| 5 shopping | app.js + css | Khong | missing+copy/fallback | ลบ ul ซ้ำ |
+| 1 วางแผน | - | Khong | ถาม 4 ข้อก่อนลงมือ | ตอบ scope ทีละส่วน |
+| 2 วงล้อ | app.js + style.css | Toey | canvas+easing+confetti | แก้ quote/มุม + พิสูจน์คณิต |
+| 3 เทส | test_final_sprint.py | Ter | 4 เทส mock | แก้ docstring + รันเขียว |
+| 4 favorites | app.js + base.html + css | Toey | store/views/nav | รื้อ nav ที่พัน + delegation หายใส่กลับ |
+| 5 shopping | app.js + css | Toey | missing+copy/fallback | ลบ ul ซ้ำ |
 | 6 filter | app.js | Benz | chips client + lastData | แก้ฟังก์ชันซ้ำ off-by-one |
 | 7 เชื่อม | app.js | ทีม | micro-edits + ตรวจรวม | node + pytest ผ่าน |
 

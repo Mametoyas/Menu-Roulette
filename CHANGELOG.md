@@ -13,6 +13,18 @@ Submission focus: Sprint 2 due 25/09/2569.
 - Canvas roulette wheel landing on selected_recipe + hand-rolled confetti (static/js/app.js, static/css/style.css)
 - tests/test_final_sprint.py (4 wheel payload contract tests, mocked)
 \- Favorites tab + localStorage hearts/badge, missing-ingredient shopping list + copy, client-side category/area filter chips
+- Vercel CD entry restored (vercel.json rewrites + api/index.py Flask function, GET / returns 200 verified)
+
+### Files
+
+```text
+static/js/app.js         <- wheel + favorites + shopping + filter
+static/css/style.css       <- wheel/confetti + fav/badge/missing/shopping styles
+templates/base.html        <- Explore/Favorites tabs + fav badge
+tests/test_final_sprint.py  <- 4 tests
+vercel.json + api/index.py  <- Vercel CD entry
+Sprint4/LEARNINGLOG.md     <- AI usage log
+```
 
 ## [v0.1.0] - Sprint 1: Base Logic and Engine (14/09/2569 19:32 - 15/09/2569 09:48, due 18/09/2569)
 

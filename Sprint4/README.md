@@ -53,3 +53,8 @@
 - Verified: node --check OK, wheel landing math OK (n=3/7/10), pytest 53 passed
 
 AI log ฉบับเต็มของ Sprint นี้: [LEARNINGLOG.md](LEARNINGLOG.md)
+
+## Progress - CD done (repo side)
+
+- Restored vercel.json (rewrites to /api/index) + api/index.py (Flask WSGI entry), verified GET / returns 200
+- Remaining (dashboard): Import repo in Vercel + auto-deploy on push to main

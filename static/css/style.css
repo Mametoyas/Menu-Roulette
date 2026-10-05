@@ -311,6 +311,16 @@ body {
   justify-content: center;
 }
 
+.ingredient-item.checked {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+.ingredient-item.checked span:first-child {
+  background: #cbd5e1;
+  color: #64748b;
+}
+
 .ingredient-item.missing {
   background: #fffbeb;
   border: 1px dashed #f59e0b;

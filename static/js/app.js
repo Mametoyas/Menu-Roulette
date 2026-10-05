@@ -1,4 +1,4 @@
-﻿/* Recipe Roulette — Sprint 3 client interactivity.
+/* Recipe Roulette — Sprint 3 client interactivity.
    Implemented against the API contract in src/web_app.py.
    UI follows DESIGN.md (recipe cards, modal, roulette spin, toasts). */
 (function () {
@@ -15,7 +15,9 @@
   var state = {
     query: [], // selected ingredients / chips
     view: 'explore',
-    lastData: null, // last successful search payload
+    searchData: null, // holds search results from API
+    lastData: null, // alias for searchData
+    lastQuery: '', // query string corresponding to searchData
     filter: { category: '', area: '' }
   };
   var FAVORITES_KEY = 'rr-favorites-v1';
@@ -202,6 +204,10 @@
     if (data.status === "error") {
       section.classList.add("hidden");
       empty.classList.remove("hidden");
+      var emptyHeading = empty.querySelector("h3");
+      var emptySub = empty.querySelector("p");
+      if (emptyHeading) emptyHeading.textContent = "Something went wrong";
+      if (emptySub) emptySub.textContent = data.message || "Search failed";
       title.textContent = "Something went wrong";
       count.textContent = "";
       showToast(data.message || "Search failed", "danger");
@@ -213,30 +219,47 @@
       registry[String(r.id)] = r;
     });
 
-    state.lastData = data;
-    renderFilterBar(data);
+    if (mode !== 'favorites') {
+      state.searchData = data;
+      state.lastData = data;
+      renderFilterBar(data);
+    } else {
+      var oldBar = document.getElementById('filter-bar');
+      if (oldBar) oldBar.remove();
+    }
 
     var total = data.top_recipes ? data.top_recipes.length : 0;
     var shown = mode === 'favorites' ? (data.top_recipes || []) : applyFilter(data.top_recipes);
-    section.classList.remove("hidden");
-    empty.classList.add("hidden");
+
     if (mode === 'favorites') {
       title.textContent = "Favorite Recipes";
       count.textContent = total ? total + " saved recipe" + (total > 1 ? "s" : "") + " in this device" : "";
+      clearBtn.classList.add("hidden");
     } else {
       title.textContent = total ? "Matched Recipes" : "No Recipes";
       count.textContent = total
         ? shown.length + " of " + total + " matching recipe" + (total > 1 ? "s" : "") + " for: " + state.query.join(", ")
         : "";
+      clearBtn.classList.toggle("hidden", total === 0);
     }
-    clearBtn.classList.toggle("hidden", total === 0);
-
-    grid.innerHTML = shown.map(recipeCardHtml).join("");
-    attachCardHandlers(grid);
 
     if (shown.length === 0) {
       section.classList.add("hidden");
       empty.classList.remove("hidden");
+      var emptyHeading = empty.querySelector("h3");
+      var emptySub = empty.querySelector("p");
+      if (mode === 'favorites') {
+        if (emptyHeading) emptyHeading.textContent = "No favorite recipes yet";
+        if (emptySub) emptySub.textContent = "Click the heart icon on any recipe card to save it here.";
+      } else {
+        if (emptyHeading) emptyHeading.textContent = "No recipes found";
+        if (emptySub) emptySub.textContent = "Try different ingredients, or check your spelling.";
+      }
+    } else {
+      section.classList.remove("hidden");
+      empty.classList.add("hidden");
+      grid.innerHTML = shown.map(recipeCardHtml).join("");
+      attachCardHandlers(grid);
     }
   }
 
@@ -309,6 +332,17 @@
     document.removeEventListener("keydown", onModalKeydown);
   }
 
+  function isIngredientHave(ing) {
+    if (!state.query || !state.query.length) return false;
+    var target = String(ing || "").toLowerCase().trim();
+    if (!target) return false;
+    return state.query.some(function (q) {
+      var userIng = String(q || "").toLowerCase().trim();
+      if (!userIng) return false;
+      return target === userIng || target.indexOf(userIng) !== -1 || userIng.indexOf(target) !== -1;
+    });
+  }
+
   function modalHtml(recipe) {
     var pct = recipe.score != null ? Math.round(recipe.score * 100) : null;
     var banner = pct != null
@@ -319,21 +353,37 @@
         '<p class="text-xs opacity-80">A great recipe for your fridge</p></div></div>'
       : "";
 
-    var haveMap = {};
-    state.query.forEach(function (q) { haveMap[q] = true; });
-    var missingCount = 0;
-    var ingredients = (recipe.ingredients || []).map(function (ing) {
-      var missed = !haveMap[ing];
-      if (missed) missingCount += 1;
-      var rowCls = missed ? 'ingredient-item missing' : 'ingredient-item';
-      var missTag = missed ? '<span class="ing-tag">missing</span>' : '';
-      return '<li class="' + rowCls + ' flex items-start gap-3 cursor-pointer rounded-lg p-1.5 -m-1.5 hover:bg-amber-50/60 transition">' +
-        '<span class="mt-0.5 w-5 h-5 shrink-0 rounded-md border border-slate-200 flex items-center justify-center">' +
-        '<i class="fa-solid fa-check text-emerald-500 opacity-0 transition"></i></span>' +
-        '<span class="text-sm text-slate-700">' + escapeHtml(ing) + '</span>' + missTag + '</li>';
-    }).join("") || '<li class="text-sm text-slate-400">No ingredients listed.</li>';
-    var shoppingBar = missingCount
-      ? '<div class="shopping-bar"><span>' + missingCount + ' missing item' + (missingCount > 1 ? 's' : '') + ' - buy these:</span><button type="button" id="copy-shopping" class="shopping-copy"><i class="fa-solid fa-clipboard-list"></i> Copy shopping list</button></div>'
+    var haveList = [];
+    var missList = [];
+    (recipe.ingredients || []).forEach(function (ing) {
+      if (isIngredientHave(ing)) {
+        haveList.push(ing);
+      } else {
+        missList.push(ing);
+      }
+    });
+
+    var haveItems = haveList.map(function (ing) {
+      return '<li class="ingredient-item flex items-center gap-2.5 p-2 rounded-xl bg-white/95 border border-emerald-200/80 text-slate-700 text-xs sm:text-sm font-medium shadow-sm hover:bg-emerald-50/70 transition cursor-pointer">' +
+        '<span class="w-5 h-5 shrink-0 rounded-md bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs">' +
+        '<i class="fa-solid fa-check"></i></span>' +
+        '<span class="capitalize truncate">' + escapeHtml(ing) + '</span></li>';
+    }).join("") || '<li class="text-xs text-slate-400 italic py-4 text-center">None from your search</li>';
+
+    var missItems = missList.map(function (ing) {
+      return '<li class="ingredient-item missing flex items-center gap-2.5 p-2 rounded-xl bg-white/95 border border-amber-200/90 text-slate-700 text-xs sm:text-sm font-medium shadow-sm hover:bg-amber-50/70 transition cursor-pointer">' +
+        '<span class="w-5 h-5 shrink-0 rounded-md bg-amber-100 text-amber-600 flex items-center justify-center text-xs">' +
+        '<i class="fa-solid fa-plus"></i></span>' +
+        '<span class="capitalize truncate flex-1">' + escapeHtml(ing) + '</span>' +
+        '<span class="text-[10px] font-bold text-amber-700 bg-amber-100/80 rounded px-1.5 py-0.5 shrink-0">Need</span></li>';
+    }).join("") || '<li class="text-xs text-emerald-600 font-semibold py-4 text-center"><i class="fa-solid fa-circle-check mr-1"></i> You have all ingredients!</li>';
+
+    var shoppingBar = missList.length
+      ? '<div class="shopping-bar mt-3.5 flex items-center justify-between gap-3 bg-amber-50/90 border border-amber-200 rounded-xl p-3">' +
+        '<span class="text-xs font-semibold text-amber-900 flex items-center gap-1.5">' +
+        '<i class="fa-solid fa-basket-shopping text-amber-500"></i> ' +
+        missList.length + ' missing item' + (missList.length > 1 ? 's' : '') + ' to buy</span>' +
+        '<button type="button" id="copy-shopping" class="shopping-copy"><i class="fa-solid fa-clipboard-list mr-1"></i> Copy shopping list</button></div>'
       : '';
 
     var steps = (recipe.instructions || "")
@@ -369,9 +419,26 @@
 
       '<div class="overflow-y-auto p-5 space-y-5">' + banner +
 
-      '<div><h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">' +
+      '<div>' +
+      '<div class="flex items-center justify-between mb-3">' +
+      '<h4 class="font-bold text-slate-800 flex items-center gap-2">' +
       '<i class="fa-solid fa-egg text-amber-500"></i> Ingredients</h4>' +
-      '<ul class="grid grid-cols-1 sm:grid-cols-2 gap-2">' + ingredients + '</ul>' + shoppingBar + '</div>' +
+      '<span class="text-xs font-medium text-slate-400">' + (recipe.ingredients || []).length + ' items total</span>' +
+      '</div>' +
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">' +
+      '<div class="rounded-2xl p-3.5 bg-emerald-50/40 border border-emerald-100 flex flex-col">' +
+      '<div class="flex items-center justify-between pb-2 border-b border-emerald-200/60 mb-2">' +
+      '<span class="text-xs font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-1.5">' +
+      '<i class="fa-solid fa-circle-check text-emerald-500"></i> In Your Kitchen</span>' +
+      '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">' + haveList.length + '</span></div>' +
+      '<ul class="space-y-1.5 max-h-56 overflow-y-auto pr-1">' + haveItems + '</ul></div>' +
+      '<div class="rounded-2xl p-3.5 bg-amber-50/40 border border-amber-100 flex flex-col">' +
+      '<div class="flex items-center justify-between pb-2 border-b border-amber-200/60 mb-2">' +
+      '<span class="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">' +
+      '<i class="fa-solid fa-cart-shopping text-amber-500"></i> Need to Buy</span>' +
+      '<span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">' + missList.length + '</span></div>' +
+      '<ul class="space-y-1.5 max-h-56 overflow-y-auto pr-1">' + missItems + '</ul></div>' +
+      '</div>' + shoppingBar + '</div>' +
 
       '<div><h4 class="font-bold text-slate-800 mb-3 flex items-center gap-2">' +
       '<i class="fa-solid fa-list-ol text-orange-500"></i> Instructions</h4>' +
@@ -392,6 +459,22 @@
     return state.query.join(", ");
   }
 
+  function pickWinnerFromRecipes(recipes) {
+    if (!recipes || !recipes.length) return null;
+    var maxScore = -1;
+    recipes.forEach(function (r) {
+      if (r.score != null && r.score > maxScore) {
+        maxScore = r.score;
+      }
+    });
+    var candidates = maxScore >= 0
+      ? recipes.filter(function (r) { return r.score === maxScore; })
+      : recipes;
+    if (!candidates.length) candidates = recipes;
+    var randomIndex = Math.floor(Math.random() * candidates.length);
+    return candidates[randomIndex];
+  }
+
   function runSearch() {
     if (loading) return;
     setNav('explore');
@@ -399,9 +482,23 @@
       showToast("Add at least one ingredient first", "danger");
       return;
     }
+
+    var q = collectQuery();
+    if (state.lastData && state.lastQuery === q && state.lastData.status === "success") {
+      renderResults(state.lastData, 'explore');
+      var resultsEl = $("#results-section");
+      if (resultsEl) resultsEl.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
     showLoading("Searching recipes...");
-    api("/api/search", postPayload({ ingredients: collectQuery() }))
-      .then(renderResults)
+    api("/api/search", postPayload({ ingredients: q }))
+      .then(function (data) {
+        if (data && data.status === "success") {
+          state.lastQuery = q;
+        }
+        renderResults(data);
+      })
       .catch(function () {
         showToast("Search failed — is the server running?", "danger");
       })
@@ -424,14 +521,34 @@
       showToast("Add at least one ingredient first", "danger");
       return;
     }
+
+    var q = collectQuery();
+
+    // Cache hit: If already fetched for this exact query, spin immediately without re-fetching!
+    if (state.lastData && state.lastQuery === q && state.lastData.status === "success" && state.lastData.top_recipes && state.lastData.top_recipes.length) {
+      var pool = applyFilter(state.lastData.top_recipes);
+      if (!pool || !pool.length) pool = state.lastData.top_recipes;
+      var winner = pickWinnerFromRecipes(pool);
+      if (winner) {
+        state.lastData.selected_recipe = winner;
+      }
+      setTimeout(function () {
+        openWheel(state.lastData);
+      }, 150);
+      return;
+    }
+
     showLoading("Spinning the roulette...");
-    api("/api/search", postPayload({ ingredients: collectQuery() }))
+    api("/api/search", postPayload({ ingredients: q }))
       .then(function (data) {
+        if (data && data.status === "success") {
+          state.lastQuery = q;
+        }
         renderResults(data);
         if (data.status === "success" && data.selected_recipe) {
           setTimeout(function () {
             openWheel(data);
-          }, 400);
+          }, 300);
         } else if (data.status === "error") {
           showToast(data.message || "Search failed", "danger");
         }
@@ -523,15 +640,28 @@
 
   function showFavorites() {
     setNav('favorites');
-    renderResults({ status: 'success', top_recipes: favoriteList() }, 'favorites');
+    var favs = favoriteList();
+    renderResults({ status: 'success', top_recipes: favs }, 'favorites');
     var section = document.getElementById('results-section');
-    if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var empty = document.getElementById('empty-state');
+    var target = favs.length > 0 ? section : empty;
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function showExplore() {
     setNav('explore');
-    if (state.lastData) {
-      renderResults(state.lastData, 'explore');
+    var currentData = state.searchData || state.lastData;
+    if (currentData && currentData.status === 'success') {
+      renderResults(currentData, 'explore');
+      var section = document.getElementById('results-section');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      var section = $("#results-section");
+      var empty = $("#empty-state");
+      if (section) section.classList.add("hidden");
+      if (empty) empty.classList.add("hidden");
+      var oldBar = document.getElementById('filter-bar');
+      if (oldBar) oldBar.remove();
     }
   }
 
@@ -602,9 +732,7 @@
   /* ---------- shopping list (Sprint 4 part 3) ---------- */
 
   function missingIngredients(recipe) {
-    var have = {};
-    state.query.forEach(function (q) { have[q] = true; });
-    return (recipe.ingredients || []).filter(function (ing) { return !have[ing]; });
+    return (recipe.ingredients || []).filter(function (ing) { return !isIngredientHave(ing); });
   }
 
   function copyShopping(recipe) {
@@ -879,10 +1007,14 @@
       $("#results-grid").innerHTML = "";
       state.query = [];
       state.filter = { category: '', area: '' };
+      state.searchData = null;
       state.lastData = null;
+      state.lastQuery = '';
       setNav('explore');
       var selected = $("#selected-ingredients");
       if (selected) selected.innerHTML = "";
+      var oldBar = document.getElementById('filter-bar');
+      if (oldBar) oldBar.remove();
     });
   }
 

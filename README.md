@@ -538,6 +538,7 @@ Team: Benz / Toey / Ter / Khong - details in MEMBERS.md
 | AI log Sprint 1 | [LEARNINGLOG.md](Sprint1/LEARNINGLOG.md) |
 | AI log Sprint 2 | [LEARNINGLOG.md](Sprint2/LEARNINGLOG.md) |
 | AI log Sprint 3 | [LEARNINGLOG.md](Sprint3/LEARNINGLOG.md) |
+\| AI log Sprint 4 | [LEARNINGLOG.md](Sprint4/LEARNINGLOG.md) |
 | Course guidelines | [guidelines](cp352301_final_project_guidelines.md) |
 
 ---

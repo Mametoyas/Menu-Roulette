@@ -46,7 +46,7 @@
 - รีวิวและ QA: SPRINT_REVIEW.md
 - ประเมินเพื่อน: PEER_EVALUATION.md
 - งานแยก Sprint: Sprint1/README.md, Sprint2/README.md, Sprint3/README.md
-- ประวัติใช้ AI: Sprint1/LEARNINGLOG.md, Sprint2/LEARNINGLOG.md, Sprint3/LEARNINGLOG.md
+- ประวัติใช้ AI: Sprint1/LEARNINGLOG.md, Sprint2/LEARNINGLOG.md, Sprint3/LEARNINGLOG.md, Sprint4/LEARNINGLOG.md
 
 ---
 

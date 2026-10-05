@@ -37,3 +37,19 @@
 ---
 
 [Back to top](#top) | [README](../README.md)
+
+## Progress - Part 1 done
+
+- Wheel: canvas slices + easeOutCubic landing on winner + hand-rolled confetti + reduced-motion fallback (static/js/app.js, static/css/style.css)
+- Tests: tests/test_final_sprint.py 4 tests (wheel payload contract, mocked)
+- pytest: 53 passed
+- Remaining: favorites tab (localStorage), shopping list, cuisine/category filter
+
+## Progress - Parts 2-4 done
+
+- Favorites: localStorage store, Favorites tab + badge, card hearts, modal save toggle (no login needed)
+- Shopping: missing-ingredient marks + tag in modal, copy-to-clipboard with fallback
+- Filter: category/area chips from live results, client-side, combinable, reset via All/Clear
+- Verified: node --check OK, wheel landing math OK (n=3/7/10), pytest 53 passed
+
+AI log ฉบับเต็มของ Sprint นี้: [LEARNINGLOG.md](LEARNINGLOG.md)

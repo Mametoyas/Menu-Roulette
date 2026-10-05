@@ -6,6 +6,14 @@
 
 Submission focus: Sprint 2 due 25/09/2569.
 
+## Unreleased - Sprint 4 part 1
+
+### Added
+
+- Canvas roulette wheel landing on selected_recipe + hand-rolled confetti (static/js/app.js, static/css/style.css)
+- tests/test_final_sprint.py (4 wheel payload contract tests, mocked)
+\- Favorites tab + localStorage hearts/badge, missing-ingredient shopping list + copy, client-side category/area filter chips
+
 ## [v0.1.0] - Sprint 1: Base Logic and Engine (14/09/2569 19:32 - 15/09/2569 09:48, due 18/09/2569)
 
 ### Added

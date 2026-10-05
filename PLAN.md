@@ -1,4 +1,4 @@
-﻿<a id="top"></a>
+<a id="top"></a>
 
 [README](README.md) | [Members](MEMBERS.md) | [Plan](PLAN.md) | [Design](DESIGN.md) | [Sprint1](Sprint1/README.md) | [Sprint2](Sprint2/README.md) | [Sprint3](Sprint3/README.md) | [Changelog](CHANGELOG.md) | [Review](SPRINT_REVIEW.md) | [Peer Eval](PEER_EVALUATION.md)
 
@@ -140,6 +140,67 @@ tests/
 4. Favorites can be saved, viewed, and removed from the web UI.
 5. API calls run server-side in Flask routes; the page stays responsive via async `fetch` without full-page reloads.
 6. PEP 8 compliant code passing all `pytest` unit test cases (including new `test_web.py`).
+
+---
+
+## Sprint 4 (Final Sprint): Interactive Roulette, Favorites, Smart Shopping List & Cuisine Filter
+
+### Focus & Objectives
+ยกระดับโปรเจกต์สู่เวอร์ชันสมบูรณ์สำหรับ **Final Presentation & Live Showcase**:
+1. **Interactive Visual Roulette Wheel**: เปลี่ยนจากการสุ่มธรรมดาเป็นการหมุนวงล้อเสมือนจริง (Animated Wheel of Fortune) มีการชะลอความเร็ว (Friction easing) และยิงเอฟเฟกต์ Confetti เมื่อได้เมนูผู้ชนะ
+2. **Favorites System & Dedicated Tab**: เพิ่มแท็บ Favorites (`#nav-favorites`) บน Navigation Bar พร้อม Badge สีแดง (`bg-rose-500`) ตามที่ระบุใน DESIGN.md ให้ผู้ใช้กด ❤️ เพื่อบันทึก/ดูสูตรที่ชอบได้ โดยเก็บใน `localStorage`
+3. **Missing Ingredients & Smart Shopping List**: แสดงวัตถุดิบที่มีและที่ยังขาดอย่างชัดเจนใน Modal พร้อมปุ่ม **"Copy Shopping List"** สำหรับนำไปซื้อของต่อได้ทันที
+4. **Cuisine & Category Filter Chips**: ตัวกรองประเภทอาหาร (Category) และสัญชาติ (Cuisine/Area) เพื่อความแม่นยำในการคัดเลือกเมนูก่อนสุ่ม
+
+### Architecture & Tech Stack Additions
+| Component | Technology | Purpose |
+| :--- | :--- | :--- |
+| Interactive Wheel | HTML5 Canvas / CSS Animation | จำลองวงล้อสุ่มหมุนจริงแบบมีฟิสิกส์การชะลอและเข็มชี้ |
+| Celebration FX | Canvas-Confetti (Lightweight JS) | พลุกระดาษเฉลิมฉลองเมื่อวงล้อหยุดหมุนที่เมนูแนะนำ |
+| Client Persistence | Web Storage API (`localStorage`) | จดจำสูตรอาหารโปรด (Favorites) ข้าม Session |
+| Smart Shopping List | JavaScript String/DOM Builder + Clipboard API | คัดแยก Missing Ingredients และกดคัดลอกลง Clipboard |
+| Automated Testing | `pytest` + Flask test client | ทดสอบ Endpoint และ Client/Server Contract สำหรับฟีเจอร์ใหม่ |
+
+### Web Endpoints & Client State Map
+| Method | Route / Storage | Purpose |
+| :--- | :--- | :--- |
+| GET | `/` | Explore — ค้นหาวัตถุดิบ, กรอง Cuisine/Category, และหมุนวงล้อ Roulette |
+| POST | `/api/search` | ค้นหาและคำนวณ Match Score ตามวัตถุดิบ พร้อมรองรับ Category/Area filter |
+| GET | `/recipe/<meal_id>` | ดึงข้อมูลสูตรฉบับเต็มเพื่อแสดงใน Modal และคำนวณ Missing Ingredients |
+| Client | `localStorage['mr_favorites']` | จัดเก็บรายการเมนูโปรด (Array of recipe objects) |
+
+### Key Modules & File Modifications
+```text
+Menu-Roulette/
+├── templates/
+│   ├── base.html             # เพิ่มแท็บนำทาง Favorites พร้อม Notification Badge
+│   ├── index.html            # เพิ่มแถบตัวกรอง Cuisine/Category และโครงสร้าง Roulette Canvas
+│   └── _results_section.html # เพิ่มปุ่มกด Favorite ❤️ และการแสดง Missing Badge
+├── static/
+│   ├── css/style.css         # สไตล์วงล้อ Roulette, Confetti, และ Modal ปรับแต่งพิเศษ
+│   └── js/app.js             # Canvas Roulette Wheel, LocalStorage Sync, Shopping List Copy
+├── src/
+│   ├── recipe_engine.py      # ฟังก์ชันกรองเสริมตาม Category / Cuisine (Area)
+│   └── web_app.py            # รองรับ Query Parameters เสริมสำหรับการกรอง
+└── tests/
+    └── test_final_sprint.py  # Unit tests สำหรับการกรอง Cuisine และ Edge Cases ใหม่
+```
+
+### Roles & Responsibilities (Agile Rotation)
+| Role | Member | Deliverable |
+| :--- | :--- | :--- |
+| **Planner** | **Ter (เตอร์)** | ออกแบบ User Story สำหรับการนำเสนอ, วางสคริปต์ Demo Flow 5 นาที, อัปเดต `PLAN.md` และ `README.md` |
+| **Coder 1 (Frontend)** | **Khong (โขง)** | พัฒนา Canvas Roulette Wheel Animation, Easing Physics, Confetti Effect, และ Shopping List Clipboard |
+| **Coder 2 (Full-Stack)** | **Benz (เบ็นซ์)** | พัฒนาระบบ Favorites Tab, Favorites Manager (LocalStorage Sync), และตัวกรอง Category/Cuisine |
+| **Debugger** | **Toey (เต้ย)** | เขียน Unit Tests สำหรับโมดูลใหม่, ตรวจสอบ Responsive Layout ทุกหน้าจอ, และจัดทำ QA Report สำหรับ Demo |
+
+### Definition of Done (DoD) - Sprint 4
+1. **Interactive Roulette Wheel**: เมื่อกด Spin the Roulette ระบบจะเปิด Modal วงล้อกราฟิกที่มีชื่อเมนูแบ่งเป็นช่อง หมุนชะลอความเร็วจนหยุดที่เมนูผู้ชนะ พร้อมแสดงเอฟเฟกต์ Confetti
+2. **Navigation Tabs สมบูรณ์**: Navigation bar มีครบทั้งแท็บ `Explore` และ `Favorites` สลับหน้าไปมาได้อย่างลื่นไหลโดยไม่ต้อง Reload หน้า
+3. **Favorites Persistence**: เพิ่ม/ลบ สูตรโปรดใน Favorites แล้ว เมื่อรีเฟรชหน้าเว็บหรือเปิดใหม่ ข้อมูลยังคงอยู่ครบถ้วน (`localStorage`)
+4. **Smart Shopping List**: ในหน้ารายละเอียดสูตรอาหาร สามารถแยกแยะส่วนผสมที่มีและส่วนผสมที่ขาดได้ พร้อมมีปุ่มคลิกเดียวเพื่อคัดลอก Shopping List
+5. **Cuisine & Category Filter**: สามารถเลือกกรองประเภทอาหาร (เช่น Seafood, Vegetarian) หรือสัญชาติอาหาร (เช่น Thai, Italian) ก่อนสุ่มได้
+6. **Code Quality & Tests**: โค้ดผ่านมาตรฐาน PEP 8 และ Unit Tests ทั้งหมดใน `pytest` ผ่าน 100% (รวมชุดทดสอบใหม่)
 
 ---
 

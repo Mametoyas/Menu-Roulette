@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,9 +24,12 @@
             </a>
 
             <nav class="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
-                <a href="/" class="nav-tab {{ 'active' if request.endpoint == 'index' else '' }}">
+                <a href="/" id="nav-explore" class="nav-tab active">
                     <i class="fa-solid fa-compass"></i><span class="nav-label">Explore</span>
                 </a>
+                <button id="nav-favorites" type="button" class="nav-tab">
+                    <i class="fa-solid fa-heart"></i><span class="nav-label">Favorites</span><span id="fav-count" class="nav-badge hidden">0</span>
+                </button>
             </nav>
         </div>
     </header>
